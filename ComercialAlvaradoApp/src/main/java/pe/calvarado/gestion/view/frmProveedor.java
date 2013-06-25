@@ -50,10 +50,7 @@ public class frmProveedor extends javax.swing.JFrame implements StandardViewMeth
 
         tblProveedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Proveedor", "Direccion"
@@ -98,9 +95,30 @@ public class frmProveedor extends javax.swing.JFrame implements StandardViewMeth
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         log.info("GENERANDO UNA TRAZA...");
         proveedoresList = proveedorServices.listar();
-        loadTable(crearDefaultTableModel(proveedoresList, tblProveedor), tblProveedor);
+        cargarTablaProveedor(proveedoresList);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
+     public void cargarTablaProveedor(List<Proveedor> listado){
+       
+        DefaultTableModel model = (DefaultTableModel) tblProveedor.getModel();
+        model.getDataVector().clear();
+        for(Proveedor proveedor : listado){
+            model.addRow(new Object[]{ proveedor.getNombre(),proveedor.getDireccion() });
+        }
+        
+        TableColumnAdjuster tca = new TableColumnAdjuster(tblProveedor);
+        tca.adjustColumns();
+         
+        tblProveedor.setAutoCreateRowSorter(true);
+        tblProveedor.setModel(model);
+        tblProveedor.repaint();
+    
+    }
+    
+    
+    
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -144,32 +162,10 @@ public class frmProveedor extends javax.swing.JFrame implements StandardViewMeth
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
-    public void loadTable(DefaultTableModel data,JTable table) {
-
-        
-        TableColumnAdjuster tca = new TableColumnAdjuster(table);
-        tca.adjustColumns();
-        table.setAutoCreateRowSorter(true);
-        table.setModel(data);
-        table.repaint();
-    }
+    
 
     
     
-    public DefaultTableModel crearDefaultTableModel(List<?> generico,JTable table){
-        
-        List<Proveedor> temporalList = (List<Proveedor>)generico;
-        List<Object[]> listadoGenerado = new ArrayList();
-        DefaultTableModel modelo = (DefaultTableModel)table.getModel();
-        modelo.getDataVector().clear();
-        
-        for(Proveedor proveedor:temporalList){
-            modelo.addRow(new Object[]{proveedor.getNombre(),proveedor.getDireccion()});
-        }
-        
-        return modelo;
-    
-    }
+   
     
 }

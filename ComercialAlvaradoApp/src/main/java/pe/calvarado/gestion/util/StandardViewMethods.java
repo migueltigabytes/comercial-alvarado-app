@@ -25,7 +25,7 @@ public interface StandardViewMethods {
     * @param data, la data con la que tiene que poblarse el la tabla
     * @param table , la tabla que se va a poblar .
     */
-    public void loadTable(DefaultTableModel data,JTable table);
+    //public void loadTable(DefaultTableModel data,JTable table);
 
     
 }
