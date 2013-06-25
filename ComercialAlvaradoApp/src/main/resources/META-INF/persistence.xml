@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="comercialAlvaradoPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>pe.calvarado.gestion.entities.Ubigeo</class>
+    <class>pe.calvarado.gestion.entities.Proveedor</class>
+    <class>pe.calvarado.gestion.entities.ProductoOferta</class>
+    <class>pe.calvarado.gestion.entities.ProductoCombo</class>
+    <class>pe.calvarado.gestion.entities.Producto</class>
+    <class>pe.calvarado.gestion.entities.AtributoTipo</class>
+    <class>pe.calvarado.gestion.entities.Imagen</class>
+    <class>pe.calvarado.gestion.entities.Atributo</class>
+    <class>pe.calvarado.gestion.entities.Categoria</class>
+    <class>pe.calvarado.gestion.entities.Fabricante</class>
+    <class>pe.calvarado.gestion.entities.Contacto</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/comercial_bd"/>
+      <property name="javax.persistence.jdbc.password" value="mysql"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+    </properties>
+  </persistence-unit>
+</persistence>
