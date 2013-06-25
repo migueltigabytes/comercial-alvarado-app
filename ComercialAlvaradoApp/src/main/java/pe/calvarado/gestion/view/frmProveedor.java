@@ -95,8 +95,7 @@ public class frmProveedor extends javax.swing.JFrame implements StandardViewMeth
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         log.info("GENERANDO UNA TRAZA...");
         proveedoresList = proveedorServices.listar();
-        cargarTablaProveedor(proveedoresList);
-        
+        cargarTablaProveedor(proveedoresList);      
     }//GEN-LAST:event_jButton1ActionPerformed
 
     

@@ -10,7 +10,9 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     <property name="proveedorDao" ref="proveedorDao"/>
     </bean>
     
-    
+    <bean id="ubigeoServices" class="pe.calvarado.gestion.services.impl.UbigeoServicesImpl">
+    <property name="ubigeoDao" ref="ubigeoDao"/>   
+    </bean>
     
     
     
