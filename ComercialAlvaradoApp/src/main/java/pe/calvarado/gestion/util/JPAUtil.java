@@ -12,7 +12,7 @@ public class JPAUtil implements Serializable{
         private static Logger log   = Logger.getLogger(JPAUtil.class);
 	private static EntityManagerFactory factory;
 	   
-    static{
+        static{
         log.info("Creando EntityManagerFactory...");
         factory = Persistence.createEntityManagerFactory("comercialAlvaradoPU");
     }

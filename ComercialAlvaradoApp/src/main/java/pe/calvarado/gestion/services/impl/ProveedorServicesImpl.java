@@ -21,6 +21,21 @@ public class ProveedorServicesImpl implements ProveedorServices {
     public List<Proveedor> listar() {
        return proveedorDao.listar();
     }
+
+    @Override
+    public String insert(Proveedor proveedor) {
+       return proveedorDao.insert(proveedor);
+    }
+
+    @Override
+    public String update(Proveedor proveedor) {
+       return proveedorDao.update(proveedor);
+    }
+
+    @Override
+    public Proveedor get(Integer proveedor_id) {
+       return proveedorDao.get(proveedor_id);
+    }
     
     
     

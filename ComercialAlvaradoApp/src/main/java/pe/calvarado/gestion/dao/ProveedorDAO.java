@@ -10,5 +10,8 @@ import pe.calvarado.gestion.entities.Proveedor;
 public interface ProveedorDAO {
     
      public List<Proveedor> listar();
+     public String insert(Proveedor proveedor);
+     public String update(Proveedor proveedor);
+     public Proveedor get(Integer proveedor_id);
     
 }
