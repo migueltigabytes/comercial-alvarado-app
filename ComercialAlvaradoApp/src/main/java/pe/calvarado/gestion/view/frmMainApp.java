@@ -4,6 +4,7 @@
  */
 package pe.calvarado.gestion.view;
 
+import java.awt.Dialog;
 import java.io.IOException;
 import pe.calvarado.gestion.util.lookandfeel.MyLookAndFeel;
 import org.apache.log4j.Logger;
@@ -18,7 +19,7 @@ public class frmMainApp extends javax.swing.JFrame {
     static Logger log = Logger.getLogger(frmMainApp.class);
     
     /* Formularios */
-        frmProveedor_viejo moduloProveedor = new frmProveedor_viejo();
+        dialogRegistrarProveedor moduloProveedor = new dialogRegistrarProveedor(this,true);
     
     
     public frmMainApp() {
@@ -38,12 +39,11 @@ public class frmMainApp extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1024, 768));
 
         jMenu1.setText("File");
         menuBar1.add(jMenu1);
@@ -53,19 +53,21 @@ public class frmMainApp extends javax.swing.JFrame {
 
         jMenu3.setText("Gestión");
 
-        jMenuItem1.setText("Proveedores");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenu4.setText("Proveedor");
+
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem4.setText("Registrar Proveedor");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItem4ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem1);
+        jMenu4.add(jMenuItem4);
 
-        jMenuItem2.setText("Opcion 2");
-        jMenu3.add(jMenuItem2);
+        jMenuItem5.setText("jMenuItem5");
+        jMenu4.add(jMenuItem5);
 
-        jMenuItem3.setText("Opcion 3");
-        jMenu3.add(jMenuItem3);
+        jMenu3.add(jMenu4);
 
         menuBar1.add(jMenu3);
 
@@ -85,9 +87,9 @@ public class frmMainApp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         moduloProveedor.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,9 +113,9 @@ public class frmMainApp extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuBar menuBar1;
     // End of variables declaration//GEN-END:variables
 }
