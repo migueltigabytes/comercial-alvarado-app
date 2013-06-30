@@ -1,8 +1,16 @@
 package pe.calvarado.gestion.dao.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 import org.apache.log4j.Logger;
 import pe.calvarado.gestion.dao.ProveedorDAO;
 import pe.calvarado.gestion.entities.Proveedor;
@@ -85,6 +93,32 @@ public class ProveedorDAOImplJPA implements ProveedorDAO{
     public Proveedor get(Integer proveedor_id) {
         if(!em.isOpen()){ em = JPAUtil.getEntityManager();}
         return em.find(Proveedor.class, proveedor_id);
+    }
+
+    @Override
+    public List<Proveedor> getProveedoresByParams(String nombre,String razonSocial,String ruc) {
+                    CriteriaBuilder qb  = em.getCriteriaBuilder();
+		    CriteriaQuery cq    = qb.createQuery();
+		    Root<Proveedor> proveedor = cq.from(Proveedor.class);
+                    List<Predicate> predicates = new ArrayList<>();
+        
+                        if(nombre != null && !nombre.isEmpty()){
+                            predicates.add(qb.like(proveedor.<String>get("nombre"),"%"+nombre+"%"));
+                        }
+                    
+                        if(razonSocial != null && !razonSocial.isEmpty()){
+                            predicates.add(qb.like(proveedor.<String>get("razonSocial"),"%"+razonSocial+"%"));
+                        }
+                        
+                        if(ruc != null && !ruc.isEmpty()){
+                            predicates.add(qb.like(proveedor.<String>get("ruc"),"%"+ruc+"%"));
+                        }
+                    
+                cq.select(proveedor)
+		            .where(predicates.toArray(new Predicate[]{}));
+                            //cq.orderBy(qb.desc(proveedor.get("fechaAlta").as(Date.class)));
+                            List<Proveedor> proveedorList =  em.createQuery(cq).getResultList();
+                            return proveedorList;    
     }
     
     
