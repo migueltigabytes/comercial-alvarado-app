@@ -363,6 +363,8 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
        if(evt.getKeyCode() == evt.VK_ENTER){
            btnBuscar.doClick();
+           
+           
        }
     }//GEN-LAST:event_txtBuscarKeyPressed
 
