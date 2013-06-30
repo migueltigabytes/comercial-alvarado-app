@@ -2,15 +2,12 @@ package pe.calvarado.gestion.dao.jpa;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
 import org.apache.log4j.Logger;
 import pe.calvarado.gestion.dao.ProveedorDAO;
 import pe.calvarado.gestion.entities.Proveedor;

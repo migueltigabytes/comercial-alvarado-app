@@ -18,6 +18,7 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
     ProveedorServices proveedorServices =  (ProveedorServices)SpringUtils.getBean("proveedorServices");
     Logger log =  Logger.getLogger(dialogGestionarProveedor.class);
     
+    Proveedor proveedor;
     
     public dialogGestionarProveedor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -336,12 +337,13 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
 
 
     private void tblProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedorMouseClicked
-        List<Proveedor> lista = new ArrayList<>();
+        //List<Proveedor> lista = new ArrayList<>();
         int n = -1;        
         n = tblProveedor.getSelectedRow();
-        String Ruc = tblProveedor.getValueAt(n, 3).toString();
-        lista = proveedorServices.getProveedoresByParams(null, null,Ruc);        
-         for(Proveedor proveedor : lista){
+        proveedor = (Proveedor)tblProveedor.getModel().getValueAt(n, 0);
+        //String Ruc = tblProveedor.getValueAt(n, 3).toString();
+        //lista = proveedorServices.getProveedoresByParams(null, null,Ruc);        
+         //for(Proveedor proveedor : lista){
             txtCodigoProveedor.setText(proveedor.getProveedorId().toString());
             txtNombre.setText(proveedor.getNombre());
             txtRazonSocial.setText(proveedor.getRazonSocial());
@@ -354,7 +356,7 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
             txtReferencia.setText(proveedor.getReferencia());
             txtRUC.setText(proveedor.getRuc()); 
             txtDireccion.setText(proveedor.getDireccion());
-         }      
+         //}      
     }//GEN-LAST:event_tblProveedorMouseClicked
 
 
@@ -374,7 +376,7 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) tblProveedor.getModel();
         model.getDataVector().clear();
         for(Proveedor proveedor : listado){
-            model.addRow(new Object[]{ proveedor.getProveedorId(), proveedor.getNombre(), proveedor.getRazonSocial(), proveedor.getRuc(),
+            model.addRow(new Object[]{ proveedor, proveedor.getNombre(), proveedor.getRazonSocial(), proveedor.getRuc(),
                                        proveedor.getTelefono(), proveedor.getFax(), proveedor.getEmail(),proveedor.getDireccion()});
         }
         
