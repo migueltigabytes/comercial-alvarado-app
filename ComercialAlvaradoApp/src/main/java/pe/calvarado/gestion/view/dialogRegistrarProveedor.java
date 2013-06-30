@@ -163,6 +163,7 @@ public class dialogRegistrarProveedor extends javax.swing.JDialog {
         txtReferencia.setRows(5);
         jScrollPane1.setViewportView(txtReferencia);
 
+        btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/calvarado/gestion/view/images/add.png"))); // NOI18N
         btnRegistrar.setText("Registrar");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -355,7 +356,7 @@ public class dialogRegistrarProveedor extends javax.swing.JDialog {
                     .addComponent(btnRegistrar)
                     .addComponent(jLabel20)
                     .addComponent(jLabel9))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
