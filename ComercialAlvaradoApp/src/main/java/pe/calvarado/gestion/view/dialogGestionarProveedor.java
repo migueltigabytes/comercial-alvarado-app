@@ -3,12 +3,14 @@ package pe.calvarado.gestion.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
 import pe.calvarado.gestion.entities.Proveedor;
 import pe.calvarado.gestion.services.ProveedorServices;
 import pe.calvarado.gestion.util.SpringUtils;
 import pe.calvarado.gestion.util.TableColumnAdjuster;
+import pe.calvarado.gestion.util.messages.UIMessages;
 
 public class dialogGestionarProveedor extends javax.swing.JDialog {
 
@@ -29,8 +31,8 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         comboBuscar = new javax.swing.JComboBox();
-        txtbuscar = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProveedor = new javax.swing.JTable();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -73,10 +75,16 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
 
         comboBuscar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Por Nombre", "Por Razon Social", "Por RUC" }));
 
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+        });
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -85,9 +93,17 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Codigo Proveedor", "Nombre", "Razon Social", "RUC", "Telefono", "Fax", "Email"
+                "Código", "Nombre", "Razón Social", "RUC", "Teléfono", "Fax", "Email", "Dirección"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblProveedor);
 
         jLabel1.setText("Código de Proveedor");
@@ -248,9 +264,9 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(comboBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
-                        .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
@@ -260,8 +276,8 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -284,8 +300,8 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String buscar = txtbuscar.getText();       
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String buscar = txtBuscar.getText();       
         List<Proveedor> lista = new ArrayList<>();
         switch(comboBuscar.getSelectedIndex()){
              case 0: lista = proveedorServices.getProveedoresByParams(buscar, null, null);break;
@@ -293,16 +309,31 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
              case 2: lista = proveedorServices.getProveedoresByParams(null, null, buscar);break;         
          }
        cargarTablaProveedor(lista);
-         
-    }//GEN-LAST:event_jButton1ActionPerformed
+       
+       if(lista.isEmpty()){
+           JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("noProveedorResults"), UIMessages.getErrorMessage("defaultErrorTitle"), JOptionPane.ERROR_MESSAGE);
+           txtBuscar.requestFocus();
+           txtBuscar.selectAll();
+       }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+       if(evt.getKeyCode() == evt.VK_ENTER){
+           btnBuscar.doClick();
+       }
+    }//GEN-LAST:event_txtBuscarKeyPressed
+
+    
+   
+    
+    
      public void cargarTablaProveedor(List<Proveedor> listado){
        
         DefaultTableModel model = (DefaultTableModel) tblProveedor.getModel();
         model.getDataVector().clear();
         for(Proveedor proveedor : listado){
             model.addRow(new Object[]{ proveedor.getProveedorId(), proveedor.getNombre(), proveedor.getRazonSocial(), proveedor.getRuc(),
-                                       proveedor.getTelefono(), proveedor.getFax(), proveedor.getEmail()});
+                                       proveedor.getTelefono(), proveedor.getFax(), proveedor.getEmail(),proveedor.getDireccion()});
         }
         
         TableColumnAdjuster tca = new TableColumnAdjuster(tblProveedor);
@@ -334,8 +365,8 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JComboBox comboBuscar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JComboBox jComboBox2;
@@ -361,6 +392,7 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tblProveedor;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtCodigoProveedor;
     private javax.swing.JTextField txtDireccion;
@@ -372,6 +404,5 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
     private javax.swing.JTextArea txtReferencia;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtWeb;
-    private javax.swing.JTextField txtbuscar;
     // End of variables declaration//GEN-END:variables
 }
