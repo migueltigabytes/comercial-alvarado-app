@@ -37,6 +37,11 @@ public class ProveedorServicesImpl implements ProveedorServices {
     public Proveedor get(Integer proveedor_id) {
        return proveedorDao.get(proveedor_id);
     }
+
+    @Override
+    public List<Proveedor> getProveedoresByParams(String nombre, String razonSocial, String ruc) {
+        return proveedorDao.getProveedoresByParams(nombre, razonSocial, ruc);
+    }
     
     
     
