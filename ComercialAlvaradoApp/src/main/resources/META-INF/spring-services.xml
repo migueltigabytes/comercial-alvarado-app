@@ -10,6 +10,10 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     <property name="proveedorDao" ref="proveedorDao"/>
     </bean>
     
+    <bean id="fabricanteServices" class="pe.calvarado.gestion.services.impl.FabricanteServicesImpl">
+    <property name="fabricanteDao" ref="fabricanteDao"/>    
+    </bean>
+        
     <bean id="ubigeoServices" class="pe.calvarado.gestion.services.impl.UbigeoServicesImpl">
     <property name="ubigeoDao" ref="ubigeoDao"/>   
     </bean>

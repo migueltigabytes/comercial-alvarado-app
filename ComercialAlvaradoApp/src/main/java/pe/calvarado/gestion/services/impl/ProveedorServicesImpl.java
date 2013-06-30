@@ -17,6 +17,7 @@ public class ProveedorServicesImpl implements ProveedorServices {
         this.proveedorDao = proveedorDao;
     }
 
+    /* CRUD */
     @Override
     public List<Proveedor> listar() {
        return proveedorDao.listar();
