@@ -68,6 +68,8 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
         jButton3 = new javax.swing.JButton();
         txtWeb = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        txtRUC = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -102,6 +104,11 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblProveedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProveedorMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblProveedor);
@@ -142,6 +149,8 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
 
         jButton3.setText("Modificar Datos");
 
+        jLabel15.setText("RUC");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -170,23 +179,29 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9))
-                        .addGap(16, 16, 16)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
+                                .addGap(16, 16, 16))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jComboBox2, 0, 187, Short.MAX_VALUE)
                             .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtDireccion)
                             .addComponent(txtWeb)
-                            .addComponent(txtEmail)))
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtEmail)
+                            .addComponent(txtRUC))))
                 .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
@@ -203,7 +218,9 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
                         .addGap(24, 24, 24)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(txtCodigoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCodigoProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15)
+                            .addComponent(txtRUC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -317,6 +334,30 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+
+    private void tblProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedorMouseClicked
+        List<Proveedor> lista = new ArrayList<>();
+        int n = -1;        
+        n = tblProveedor.getSelectedRow();
+        String Ruc = tblProveedor.getValueAt(n, 3).toString();
+        lista = proveedorServices.getProveedoresByParams(null, null,Ruc);        
+         for(Proveedor proveedor : lista){
+            txtCodigoProveedor.setText(proveedor.getProveedorId().toString());
+            txtNombre.setText(proveedor.getNombre());
+            txtRazonSocial.setText(proveedor.getRazonSocial());
+            txtTelefono.setText(proveedor.getTelefono());
+            txtFax.setText(proveedor.getFax());
+            txtCelular.setText(proveedor.getCelular());
+            txtNextel.setText(proveedor.getNextel());
+            txtEmail.setText(proveedor.getEmail());
+            txtWeb.setText(proveedor.getWeb());
+            txtReferencia.setText(proveedor.getReferencia());
+            txtRUC.setText(proveedor.getRuc()); 
+            txtDireccion.setText(proveedor.getDireccion());
+         }      
+    }//GEN-LAST:event_tblProveedorMouseClicked
+
+
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
        if(evt.getKeyCode() == evt.VK_ENTER){
            btnBuscar.doClick();
@@ -327,6 +368,7 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
    
     
     
+
      public void cargarTablaProveedor(List<Proveedor> listado){
        
         DefaultTableModel model = (DefaultTableModel) tblProveedor.getModel();
@@ -378,6 +420,7 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -400,6 +443,7 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
     private javax.swing.JTextField txtFax;
     private javax.swing.JTextField txtNextel;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtRUC;
     private javax.swing.JTextField txtRazonSocial;
     private javax.swing.JTextArea txtReferencia;
     private javax.swing.JTextField txtTelefono;
