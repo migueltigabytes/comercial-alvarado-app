@@ -20,6 +20,7 @@ public class frmMainApp extends javax.swing.JFrame {
     
     /* Formularios */
         dialogRegistrarProveedor moduloProveedor = new dialogRegistrarProveedor(this,true);
+        dialogGestionarProveedor gestionarProveedor =  new dialogGestionarProveedor(this,true);
     
     
     public frmMainApp() {
@@ -67,7 +68,13 @@ public class frmMainApp extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem4);
 
-        jMenuItem5.setText("jMenuItem5");
+        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem5.setText("Gestionar Proveedor");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem5);
 
         jMenu3.add(jMenu4);
@@ -103,6 +110,10 @@ public class frmMainApp extends javax.swing.JFrame {
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         moduloProveedor.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        gestionarProveedor.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
