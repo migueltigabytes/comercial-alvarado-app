@@ -42,6 +42,9 @@ public class frmMainApp extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +71,16 @@ public class frmMainApp extends javax.swing.JFrame {
         jMenu4.add(jMenuItem5);
 
         jMenu3.add(jMenu4);
+
+        jMenu5.setText("Fabricante");
+
+        jMenuItem1.setText("Registrar");
+        jMenu5.add(jMenuItem1);
+
+        jMenuItem2.setText("Buscar");
+        jMenu5.add(jMenuItem2);
+
+        jMenu3.add(jMenu5);
 
         menuBar1.add(jMenu3);
 
@@ -114,6 +127,9 @@ public class frmMainApp extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuBar menuBar1;
