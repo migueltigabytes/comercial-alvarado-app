@@ -2,7 +2,6 @@ package pe.calvarado.gestion.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
 import pe.calvarado.gestion.entities.Proveedor;
@@ -29,7 +28,7 @@ public class frmProveedor_viejo extends javax.swing.JFrame implements StandardVi
         
     }
 
-   
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -38,7 +37,7 @@ public class frmProveedor_viejo extends javax.swing.JFrame implements StandardVi
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProveedor = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/calvarado/gestion/view/images/add.png"))); // NOI18N
         jButton1.setText("Registrar");
