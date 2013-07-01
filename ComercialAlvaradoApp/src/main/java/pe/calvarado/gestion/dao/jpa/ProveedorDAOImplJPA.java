@@ -31,7 +31,8 @@ public class ProveedorDAOImplJPA implements ProveedorDAO{
     
     @Override
     public List<Proveedor> listar() {
-                TypedQuery<Proveedor> query = em.createQuery("select p From Proveedor p",Proveedor.class);
+                TypedQuery<Proveedor> query = em.createQuery("select p From Proveedor p WHERE p.markfordelete = ?1",Proveedor.class);
+                query.setParameter(1, false);
 		return query.getResultList();
     }
 
@@ -64,7 +65,8 @@ public class ProveedorDAOImplJPA implements ProveedorDAO{
     public String update(Proveedor proveedor) {
               String mensaje = null;
               log.trace("Actualizando proveedor...");
-                
+              if(!em.isOpen()) { em = JPAUtil.getEntityManager(); }
+              
              Proveedor proveedorEncontrado = em.find(Proveedor.class,proveedor.getProveedorId());
              proveedorEncontrado.setNombre(proveedor.getNombre());
              
@@ -81,9 +83,10 @@ public class ProveedorDAOImplJPA implements ProveedorDAO{
                     log.error("Error al actualizar cheque...");
                 }
                 
-                return mensaje;
-        
-        
+                finally{
+                   em.close();
+                   return mensaje;
+                }                     
     }
 
     @Override
@@ -94,6 +97,8 @@ public class ProveedorDAOImplJPA implements ProveedorDAO{
 
     @Override
     public List<Proveedor> getProveedoresByParams(String nombre,String razonSocial,String ruc) {
+                    if(!em.isOpen()) { em = JPAUtil.getEntityManager(); } 
+        
                     CriteriaBuilder qb  = em.getCriteriaBuilder();
 		    CriteriaQuery cq    = qb.createQuery();
 		    Root<Proveedor> proveedor = cq.from(Proveedor.class);
@@ -111,11 +116,16 @@ public class ProveedorDAOImplJPA implements ProveedorDAO{
                             predicates.add(qb.like(proveedor.<String>get("ruc"),"%"+ruc+"%"));
                         }
                     
+                        predicates.add(qb.equal(proveedor.<Boolean>get("markfordelete"), false));
+                        
                 cq.select(proveedor)
 		            .where(predicates.toArray(new Predicate[]{}));
                             //cq.orderBy(qb.desc(proveedor.get("fechaAlta").as(Date.class)));
                             List<Proveedor> proveedorList =  em.createQuery(cq).getResultList();
+                            em.close();
                             return proveedorList;    
+                            
+                            
     }
     
     

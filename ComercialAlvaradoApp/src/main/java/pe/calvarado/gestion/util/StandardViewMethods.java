@@ -1,10 +1,5 @@
 package pe.calvarado.gestion.util;
 
-import java.util.Collection;
-import java.util.List;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author DIEGOALV

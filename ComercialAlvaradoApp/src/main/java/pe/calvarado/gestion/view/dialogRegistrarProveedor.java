@@ -3,6 +3,8 @@ package pe.calvarado.gestion.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -11,22 +13,31 @@ import org.apache.log4j.Logger;
 import pe.calvarado.gestion.entities.Proveedor;
 import pe.calvarado.gestion.entities.Ubigeo;
 import pe.calvarado.gestion.services.ProveedorServices;
+import pe.calvarado.gestion.services.UbigeoServices;
 import pe.calvarado.gestion.util.SpringUtils;
+import pe.calvarado.gestion.util.StandardViewMethods;
 import pe.calvarado.gestion.util.Validar;
+import pe.calvarado.gestion.util.helpers.UbigeoHelper;
 import pe.calvarado.gestion.util.messages.UIMessages;
 
-public class dialogRegistrarProveedor extends javax.swing.JDialog {
-
+public class dialogRegistrarProveedor extends javax.swing.JDialog implements StandardViewMethods{
+    
+    /* Services */
+    UbigeoServices ubigeoServices       = (UbigeoServices)SpringUtils.getBean("ubigeoServices");
     ProveedorServices proveedorServices = (ProveedorServices) SpringUtils.getBean("proveedorServices");
+    /* Logging */
     Logger log = Logger.getLogger(dialogRegistrarProveedor.class);  
     private static final int NO_ULTIMO = 0;
-    List<JTextField> textFieldList = new ArrayList<>();    
+    /* List*/
+    List<JTextField> textFieldList = new ArrayList<>(); 
+    List<Ubigeo> ubigeoList = new ArrayList<>();
     
     
     public dialogRegistrarProveedor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         cargarListaDeJTextFieldObligatorios();
+        loadData();
     }
 
     @SuppressWarnings("unchecked")
@@ -124,27 +135,27 @@ public class dialogRegistrarProveedor extends javax.swing.JDialog {
 
         jLabel13.setText("Departamento");
 
-        comboDepto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboDepto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
         comboDepto.setNextFocusableComponent(comboProvincia);
-        comboDepto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                comboDeptoKeyPressed(evt);
+        comboDepto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboDeptoItemStateChanged(evt);
             }
         });
 
         jLabel14.setText("Provincia");
 
-        comboProvincia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboProvincia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
         comboProvincia.setNextFocusableComponent(comboDistrito);
-        comboProvincia.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                comboProvinciaKeyPressed(evt);
+        comboProvincia.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboProvinciaItemStateChanged(evt);
             }
         });
 
         jLabel15.setText("Distrito");
 
-        comboDistrito.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboDistrito.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione" }));
         comboDistrito.setNextFocusableComponent(txtDireccion);
         comboDistrito.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -373,11 +384,25 @@ public class dialogRegistrarProveedor extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    @Override
+    public void loadData() {
+        ubigeoList = ubigeoServices.listarUbigeo();
+        comboDepto.setModel(UbigeoHelper.cargarComboDepto(ubigeoList, comboDepto,null)); 
+    }
+    
+
+    public void limpiarCombo(JComboBox combo){
+        combo.removeAllItems();
+        combo.addItem("Seleccione");
+    }
+    
+    
+    
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         log.info("Traza registrar Proveedor");       
         String inserto;
         if(esValidoElFormulario()){        
-        Ubigeo ubigeo = new Ubigeo(1);
+        Ubigeo ubigeo = (Ubigeo)comboDistrito.getSelectedItem();
         Proveedor p = new Proveedor();
         p.setNombre(txtNombre.getText());
         p.setRazonSocial(txtRazonSocial.getText());
@@ -468,25 +493,35 @@ public class dialogRegistrarProveedor extends javax.swing.JDialog {
         } 
     }//GEN-LAST:event_txtRucKeyPressed
 
-    private void comboDeptoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_comboDeptoKeyPressed
-         if(evt.getKeyCode()==evt.VK_ENTER){
-           comboProvincia.requestFocus();
-        } 
-    }//GEN-LAST:event_comboDeptoKeyPressed
-
-    private void comboProvinciaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_comboProvinciaKeyPressed
-        if(evt.getKeyCode()==evt.VK_ENTER){
-           comboDistrito.requestFocus();
-        } 
-    }//GEN-LAST:event_comboProvinciaKeyPressed
-
     private void comboDistritoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_comboDistritoKeyPressed
        if(evt.getKeyCode()==evt.VK_ENTER){
            txtDireccion.requestFocus();
         } 
     }//GEN-LAST:event_comboDistritoKeyPressed
-   
-    
+
+    private void comboDeptoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboDeptoItemStateChanged
+        if(comboDepto.getSelectedIndex() > 0){ 
+            limpiarCombo(comboProvincia);
+            limpiarCombo(comboDistrito);
+            comboProvincia.setModel(UbigeoHelper.cargarComboProv(ubigeoList, comboProvincia, comboDepto,null));
+        } else {
+            limpiarCombo(comboProvincia);
+            limpiarCombo(comboDistrito);
+        }
+    }//GEN-LAST:event_comboDeptoItemStateChanged
+
+    private void comboProvinciaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboProvinciaItemStateChanged
+      if(comboProvincia.getSelectedIndex() > 0){ 
+        limpiarCombo(comboDistrito);
+        comboDistrito.setModel(UbigeoHelper.cargarComboDistrito(ubigeoList, comboDistrito, comboProvincia, comboDepto,null));
+      } 
+      
+      if(comboProvincia.getSelectedIndex() == 0){
+          limpiarCombo(comboDistrito);
+      }
+      
+    }//GEN-LAST:event_comboProvinciaItemStateChanged
+             
    public boolean esValidoElFormulario(){
         /* VALIDAMOS QUE ESTEN COMPLETADOS TODOS LOS CAMPOS OBLIGATORIOS */
           for(JTextField txtField : textFieldList){  
@@ -561,30 +596,7 @@ public class dialogRegistrarProveedor extends javax.swing.JDialog {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(dialogRegistrarProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(dialogRegistrarProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(dialogRegistrarProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(dialogRegistrarProveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 dialogRegistrarProveedor dialog = new dialogRegistrarProveedor(new javax.swing.JFrame(), true);
@@ -636,4 +648,6 @@ public class dialogRegistrarProveedor extends javax.swing.JDialog {
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtWeb;
     // End of variables declaration//GEN-END:variables
+
+    
 }

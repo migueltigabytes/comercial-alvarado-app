@@ -73,8 +73,8 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="113" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jTabbedPane1" pref="340" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jTabbedPane1" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -92,6 +92,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtBuscar">
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscarKeyPressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnBuscar">
           <Properties>
@@ -178,12 +181,11 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -226,7 +228,7 @@
                                       <Component id="txtRUC" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtNombre" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -258,7 +260,7 @@
                               <Component id="comboProvincia" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtCelular" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -266,7 +268,7 @@
                               <Component id="comboDistrito" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnModificar" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtNextel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -274,7 +276,7 @@
                               <Component id="txtDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnActualizar" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="35" max="32767" attributes="0"/>
+                          <EmptySpace pref="14" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -372,6 +374,9 @@
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="comboDeptoItemStateChanged"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel11">
                   <Properties>
@@ -390,6 +395,9 @@
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="comboProvinciaItemStateChanged"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="comboDistrito">
                   <Properties>
@@ -476,6 +484,28 @@
                   </Events>
                 </Component>
               </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanel3">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Contactos">
+                    <Property name="tabTitle" type="java.lang.String" value="Contactos"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="930" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="295" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
             </Container>
           </SubComponents>
         </Container>

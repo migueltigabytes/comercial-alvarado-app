@@ -1,26 +1,35 @@
 package pe.calvarado.gestion.view;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
 import pe.calvarado.gestion.entities.Proveedor;
+import pe.calvarado.gestion.entities.Ubigeo;
 import pe.calvarado.gestion.services.ProveedorServices;
+import pe.calvarado.gestion.services.UbigeoServices;
 import pe.calvarado.gestion.util.SpringUtils;
+import pe.calvarado.gestion.util.StandardViewMethods;
 import pe.calvarado.gestion.util.TableColumnAdjuster;
+import pe.calvarado.gestion.util.helpers.UbigeoHelper;
 import pe.calvarado.gestion.util.messages.UIMessages;
 
-public class dialogGestionarProveedor extends javax.swing.JDialog {
+public class dialogGestionarProveedor extends javax.swing.JDialog implements StandardViewMethods {
 
     ProveedorServices proveedorServices = (ProveedorServices) SpringUtils.getBean("proveedorServices");
+    UbigeoServices ubigeoServices       = (UbigeoServices)SpringUtils.getBean("ubigeoServices");
     Logger log = Logger.getLogger(dialogGestionarProveedor.class);
-    Proveedor proveedor;
-    int n = -1; 
+    Proveedor proveedorSelected;
+    int filaSeleccionada = -1; 
+    List<Ubigeo> ubigeoList = new ArrayList<>();
 
     public dialogGestionarProveedor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        loadData();
     }
 
     @SuppressWarnings("unchecked")
@@ -69,12 +78,19 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
         jLabel15 = new javax.swing.JLabel();
         txtRUC = new javax.swing.JTextField();
         btnActualizar = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestionar Proveedor"));
 
         comboBuscar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Por Nombre", "Por Razon Social", "Por RUC" }));
+
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -141,12 +157,22 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
         jLabel10.setText("Departamento");
 
         comboDepto.setEnabled(false);
+        comboDepto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboDeptoItemStateChanged(evt);
+            }
+        });
 
         jLabel11.setText("Provincia");
 
         jLabel12.setText("Distrito");
 
         comboProvincia.setEnabled(false);
+        comboProvincia.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboProvinciaItemStateChanged(evt);
+            }
+        });
 
         comboDistrito.setEnabled(false);
 
@@ -225,10 +251,9 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
                             .addComponent(jLabel9))
                         .addGap(16, 16, 16))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel13))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -262,7 +287,7 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
                             .addComponent(jLabel15)
                             .addComponent(txtRUC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14))
-                        .addGap(28, 28, 28)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -288,24 +313,37 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
                     .addComponent(jLabel11)
                     .addComponent(comboProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(comboDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtNextel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnActualizar))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos de Proveedor", jPanel2);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 930, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 295, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Contactos", jPanel3);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -335,8 +373,8 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jTabbedPane1)
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -353,6 +391,13 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    @Override
+    public final void loadData() {
+        ubigeoList = ubigeoServices.listarUbigeo();
+    }
+    
+    
+    
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String buscar = txtBuscar.getText();
         List<Proveedor> lista = new ArrayList<>();
@@ -378,32 +423,40 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
 
     private void tblProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedorMouseClicked
                
-        n = tblProveedor.getSelectedRow();     
-        proveedor = (Proveedor) tblProveedor.getModel().getValueAt(n, 0);
-        txtCodigoProveedor.setText(proveedor.getProveedorId().toString());
-        txtNombre.setText(proveedor.getNombre());
-        txtRazonSocial.setText(proveedor.getRazonSocial());
-        txtTelefono.setText(proveedor.getTelefono());
-        txtFax.setText(proveedor.getFax());
-        txtCelular.setText(proveedor.getCelular());
-        txtNextel.setText(proveedor.getNextel());
-        txtEmail.setText(proveedor.getEmail());
-        txtWeb.setText(proveedor.getWeb());
-        txtReferencia.setText(proveedor.getReferencia());
-        txtRUC.setText(proveedor.getRuc());
-        txtDireccion.setText(proveedor.getDireccion());
+        filaSeleccionada = tblProveedor.getSelectedRow();
+        if(filaSeleccionada != -1){
+        proveedorSelected = (Proveedor) tblProveedor.getModel().getValueAt(filaSeleccionada, 0);
+        txtCodigoProveedor.setText(proveedorSelected.getProveedorId().toString());
+        txtNombre.setText(proveedorSelected.getNombre());
+        txtRazonSocial.setText(proveedorSelected.getRazonSocial());
+        txtTelefono.setText(proveedorSelected.getTelefono());
+        txtFax.setText(proveedorSelected.getFax());
+        txtCelular.setText(proveedorSelected.getCelular());
+        txtNextel.setText(proveedorSelected.getNextel());
+        txtEmail.setText(proveedorSelected.getEmail());
+        txtWeb.setText(proveedorSelected.getWeb());
+        txtReferencia.setText(proveedorSelected.getReferencia());
+        txtRUC.setText(proveedorSelected.getRuc());
+        txtDireccion.setText(proveedorSelected.getDireccion());
+        
+        
+        comboDepto.setModel(UbigeoHelper.cargarComboDepto(ubigeoList,comboDepto,proveedorSelected.getUbigeoId()));
+        comboProvincia.setModel(UbigeoHelper.cargarComboProv(ubigeoList, comboProvincia, comboDepto, proveedorSelected.getUbigeoId()));
+        comboDistrito.setModel(UbigeoHelper.cargarComboDistrito(ubigeoList, comboDistrito, comboProvincia, comboDepto, proveedorSelected.getUbigeoId()));
+        
+        
+        }
                
     }//GEN-LAST:event_tblProveedorMouseClicked
 
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
-        if (evt.getKeyCode() == evt.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             btnBuscar.doClick();
-
-        }
+            }
     }//GEN-LAST:event_txtBuscarKeyPressed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        if(n != -1){
+        if(filaSeleccionada != -1){
         habilitarCampos(true);
         }else{
           JOptionPane.showMessageDialog(this, UIMessages.getInfoMessage("noItemSelected"));
@@ -412,25 +465,25 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         String mensaje;
-        proveedor.setProveedorId(Integer.parseInt(txtCodigoProveedor.getText()));
-        proveedor.setCelular(txtCelular.getText());
-        proveedor.setDireccion(txtDireccion.getText());
-        proveedor.setEmail(txtEmail.getText());
-        proveedor.setFax(txtFax.getText());
-        proveedor.setNextel(txtNextel.getText());
-        proveedor.setNombre(txtNombre.getText());
-        proveedor.setRazonSocial(txtRazonSocial.getText());
-        proveedor.setReferencia(txtReferencia.getText());
-        proveedor.setRuc(txtRUC.getText());
-        proveedor.setTelefono(txtTelefono.getText());
-        proveedor.setWeb(txtWeb.getText());
-        //proveedor.setUbigeoId();        
-        mensaje = proveedorServices.update(proveedor);
+        proveedorSelected.setProveedorId(Integer.parseInt(txtCodigoProveedor.getText()));
+        proveedorSelected.setCelular(txtCelular.getText());
+        proveedorSelected.setDireccion(txtDireccion.getText());
+        proveedorSelected.setEmail(txtEmail.getText());
+        proveedorSelected.setFax(txtFax.getText());
+        proveedorSelected.setNextel(txtNextel.getText());
+        proveedorSelected.setNombre(txtNombre.getText());
+        proveedorSelected.setRazonSocial(txtRazonSocial.getText());
+        proveedorSelected.setReferencia(txtReferencia.getText());
+        proveedorSelected.setRuc(txtRUC.getText());
+        proveedorSelected.setTelefono(txtTelefono.getText());
+        proveedorSelected.setWeb(txtWeb.getText());
+        proveedorSelected.setUbigeoId((Ubigeo)comboDistrito.getSelectedItem());
+        mensaje = proveedorServices.update(proveedorSelected);
          if(mensaje != null){
             JOptionPane.showMessageDialog(this, UIMessages.getInfoMessage("onCompleteUpdate"));
             limpiarDatos();
             habilitarCampos(false);   
-            n=-1;
+            filaSeleccionada = -1;
         }else{
           JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("onInsertError"), UIMessages.getErrorMessage("onInsertError_title"), JOptionPane.ERROR_MESSAGE);
         }               
@@ -438,9 +491,51 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        String mensaje;
+        proveedorSelected.setMarkfordelete(true);
+        
+        mensaje = proveedorServices.update(proveedorSelected);
+      
+        if(mensaje != null){
+            JOptionPane.showMessageDialog(this, UIMessages.getInfoMessage("onCompleteDelete"));
+            limpiarDatos();
+            habilitarCampos(false);   
+            filaSeleccionada = -1;
+        }else{
+          JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("onDeleteError"), UIMessages.getErrorMessage("defaultErrorTitle"), JOptionPane.ERROR_MESSAGE);
+        }    
       
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void comboDeptoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboDeptoItemStateChanged
+       if(comboDepto.getSelectedIndex() > 0){ 
+            limpiarCombo(comboProvincia);
+            limpiarCombo(comboDistrito);
+            comboProvincia.setModel(UbigeoHelper.cargarComboProv(ubigeoList, comboProvincia, comboDepto,null));
+        } else {
+            limpiarCombo(comboProvincia);
+            limpiarCombo(comboDistrito);
+        }
+    }//GEN-LAST:event_comboDeptoItemStateChanged
+
+    private void comboProvinciaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboProvinciaItemStateChanged
+        if(comboProvincia.getSelectedIndex() > 0){ 
+            limpiarCombo(comboDistrito);
+            comboDistrito.setModel(UbigeoHelper.cargarComboDistrito(ubigeoList, comboDistrito, comboProvincia, comboDepto,null));
+        } 
+      
+        if(comboProvincia.getSelectedIndex() == 0){
+          limpiarCombo(comboDistrito);
+        }
+    }//GEN-LAST:event_comboProvinciaItemStateChanged
+
+    public void limpiarCombo(JComboBox combo){
+        combo.removeAllItems();
+        combo.addItem("Seleccione");
+    }
+    
+    
+    
     private void limpiarDatos(){
         txtCodigoProveedor.setText("");
         txtNombre.setText("");
@@ -452,14 +547,16 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
         txtEmail.setText("");
         txtWeb.setText("");
         txtRUC.setText("");
-       // comboDepto.setSelectedIndex(0);
-       // comboProvincia.setSelectedIndex(0);
-       // comboDistrito.setSelectedIndex(0);
+        comboDepto.setSelectedIndex(0);
+        comboProvincia.setSelectedIndex(0);
+        comboDistrito.setSelectedIndex(0);
         txtReferencia.setText("");
         txtDireccion.setText("");
         btnActualizar.setEnabled(false);    
         DefaultTableModel model = (DefaultTableModel) tblProveedor.getModel();
-        model.getDataVector().clear();        
+        model.getDataVector().clear();
+        tblProveedor.setModel(model);
+        tblProveedor.repaint();
     }
     
     
@@ -487,6 +584,7 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) tblProveedor.getModel();
         model.getDataVector().clear();
         for (Proveedor proveedor : listado) {
+            log.info(proveedor.getMarkfordelete());
             model.addRow(new Object[]{proveedor, proveedor.getNombre(), proveedor.getRazonSocial(), proveedor.getRuc(),
                         proveedor.getTelefono(), proveedor.getFax(), proveedor.getEmail(), proveedor.getDireccion()});
         }
@@ -544,6 +642,7 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -562,4 +661,6 @@ public class dialogGestionarProveedor extends javax.swing.JDialog {
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtWeb;
     // End of variables declaration//GEN-END:variables
+
+    
 }
