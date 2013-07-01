@@ -25,6 +25,7 @@ public class dialogGestionarProveedor extends javax.swing.JDialog implements Sta
     Proveedor proveedorSelected;
     int filaSeleccionada = -1; 
     List<Ubigeo> ubigeoList = new ArrayList<>();
+    
 
     public dialogGestionarProveedor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
