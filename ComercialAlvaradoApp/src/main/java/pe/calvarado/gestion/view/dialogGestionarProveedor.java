@@ -79,7 +79,6 @@ public class dialogGestionarProveedor extends javax.swing.JDialog implements Sta
         jLabel15 = new javax.swing.JLabel();
         txtRUC = new javax.swing.JTextField();
         btnActualizar = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -333,19 +332,6 @@ public class dialogGestionarProveedor extends javax.swing.JDialog implements Sta
 
         jTabbedPane1.addTab("Datos de Proveedor", jPanel2);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 930, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 295, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Contactos", jPanel3);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -455,14 +441,7 @@ public class dialogGestionarProveedor extends javax.swing.JDialog implements Sta
             btnBuscar.doClick();
             }
     }//GEN-LAST:event_txtBuscarKeyPressed
-
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        if(filaSeleccionada != -1){
-        habilitarCampos(true);
-        }else{
-          JOptionPane.showMessageDialog(this, UIMessages.getInfoMessage("noItemSelected"));
-        }
-    }//GEN-LAST:event_btnModificarActionPerformed
+                                       
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         String mensaje;
@@ -480,16 +459,23 @@ public class dialogGestionarProveedor extends javax.swing.JDialog implements Sta
         proveedorSelected.setWeb(txtWeb.getText());
         proveedorSelected.setUbigeoId((Ubigeo)comboDistrito.getSelectedItem());
         mensaje = proveedorServices.update(proveedorSelected);
-         if(mensaje != null){
+        if(mensaje != null){
             JOptionPane.showMessageDialog(this, UIMessages.getInfoMessage("onCompleteUpdate"));
             limpiarDatos();
-            habilitarCampos(false);   
+            habilitarCampos(false);
             filaSeleccionada = -1;
         }else{
-          JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("onInsertError"), UIMessages.getErrorMessage("onInsertError_title"), JOptionPane.ERROR_MESSAGE);
-        }               
-               
+            JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("onInsertError"), UIMessages.getErrorMessage("onInsertError_title"), JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        if(filaSeleccionada != -1){
+            habilitarCampos(true);
+        }else{
+            JOptionPane.showMessageDialog(this, UIMessages.getInfoMessage("noItemSelected"));
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         String mensaje;
@@ -643,7 +629,6 @@ public class dialogGestionarProveedor extends javax.swing.JDialog implements Sta
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
