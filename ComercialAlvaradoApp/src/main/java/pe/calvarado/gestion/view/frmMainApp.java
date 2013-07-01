@@ -4,7 +4,6 @@
  */
 package pe.calvarado.gestion.view;
 
-import java.awt.Dialog;
 import java.io.IOException;
 import pe.calvarado.gestion.util.lookandfeel.MyLookAndFeel;
 import org.apache.log4j.Logger;

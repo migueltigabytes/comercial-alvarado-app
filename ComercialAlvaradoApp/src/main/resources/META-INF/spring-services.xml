@@ -18,6 +18,10 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     <property name="ubigeoDao" ref="ubigeoDao"/>   
     </bean>
     
+    <bean id="contactoServices" class="pe.calvarado.gestion.services.impl.ContactoServicesImpl">
+    <property name="contactoDao" ref="contactoDao"/>    
+    </bean>
+    
     
     
 </beans>

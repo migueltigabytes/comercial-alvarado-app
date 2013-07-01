@@ -41,7 +41,7 @@ public class Contacto implements Serializable {
     @Column(name = "celular")
     private String celular;
     @Column(name = "email")
-    private Integer email;
+    private String email;
     @Column(name = "referencia")
     private String referencia;
     @Basic(optional = false)
@@ -97,11 +97,11 @@ public class Contacto implements Serializable {
         this.celular = celular;
     }
 
-    public Integer getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(Integer email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -151,7 +151,7 @@ public class Contacto implements Serializable {
 
     @Override
     public String toString() {
-        return "pe.calvarado.gestion.entities.Contacto[ contactoId=" + contactoId + " ]";
+       return getContactoId().toString();
     }
     
 }

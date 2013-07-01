@@ -29,6 +29,11 @@
       <layout>default</layout>
       <name>Repository for library EclipseLink (JPA 2.0)</name>
     </repository>
+    <repository>
+      <id>unknown-jars-temp-repo</id>
+      <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
+      <url>file:${project.basedir}/lib</url>
+    </repository>
   </repositories>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -119,7 +124,11 @@
 	<groupId>com.jtattoo</groupId>
 	<artifactId>JTattoo</artifactId>
 	<version>1.6.7</version>
-</dependency>                                                                                                                                                                                                                                                                                                                                             
-                                                                
+</dependency>
+    <dependency>
+      <groupId>unknown.binary</groupId>
+      <artifactId>AbsoluteLayout</artifactId>
+      <version>SNAPSHOT</version>
+    </dependency>
   </dependencies>
 </project>
