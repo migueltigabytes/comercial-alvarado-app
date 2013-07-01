@@ -4,6 +4,7 @@ package pe.calvarado.gestion.services.impl;
 import java.util.List;
 import pe.calvarado.gestion.dao.ContactoDAO;
 import pe.calvarado.gestion.entities.Contacto;
+import pe.calvarado.gestion.entities.Proveedor;
 import pe.calvarado.gestion.services.ContactoServices;
 
 
@@ -37,8 +38,8 @@ public class ContactoServicesImpl implements ContactoServices{
     }
 
     @Override
-    public List<Contacto> listarporNombre(String nombre, int proveedorId) {
-        return contactoDao.listarporNombre(nombre, proveedorId);
+    public List<Contacto> listarporNombre(String nombre, Proveedor proveedor) {
+        return contactoDao.listarporNombre(nombre, proveedor);
     }
     
 }

@@ -87,7 +87,7 @@ public class ContactoDAOImplJPA implements ContactoDAO {
 
    
     @Override
-    public List<Contacto> listarporNombre(String nombre, int proveedor) {
+    public List<Contacto> listarporNombre(String nombre, Proveedor proveedor) {
         if (!em.isOpen()) {
             em = JPAUtil.getEntityManager();
         }        
@@ -98,17 +98,7 @@ public class ContactoDAOImplJPA implements ContactoDAO {
 
       
         predicates.add(qb.like(contacto.<String>get("nombre"), "%" + nombre + "%"));
-        
-////
-////        if (proveedorId != null && !r.isEmpty()) {
-////            predicates.add(qb.like(proveedor.<String>get("razonSocial"), "%" + razonSocial + "%"));
-//        }
-////
-////        if (ruc != null && !ruc.isEmpty()) {
-//            predicates.add(qb.like(proveedor.<String>get("ruc"), "%" + ruc + "%"));
-//        }
-
-        predicates.add(qb.equal(contacto.<Integer>get("proveedor_id"), proveedor));
+        predicates.add(qb.equal(contacto.<Proveedor>get("proveedorId"), proveedor));
 
         cq.select(contacto).where(predicates.toArray(new Predicate[]{}));
         //cq.orderBy(qb.desc(proveedor.get("fechaAlta").as(Date.class)));
