@@ -26,7 +26,8 @@ public class ContactoDAOImplJPA implements ContactoDAO {
 
     @Override
     public List<Contacto> listar() {
-        TypedQuery<Contacto> query = em.createQuery("select c From Contacto c", Contacto.class);
+        TypedQuery<Contacto> query = em.createQuery("select c From Contacto c WHERE c.markfordelete = ?1", Contacto.class);
+        query.setParameter(1, false);
         return query.getResultList();
     }
 
@@ -56,7 +57,7 @@ public class ContactoDAOImplJPA implements ContactoDAO {
     public String update(Contacto contacto) {
         String mensaje = null;
         log.trace("Actualizando contacto...");
-
+        if(!em.isOpen()) { em = JPAUtil.getEntityManager(); }
 //        Contacto contactoEncontrado = em.find(Contacto.class, contacto.getContactoId());
 //        contactoEncontrado.setNombre(contacto.getNombre());
 
@@ -99,6 +100,7 @@ public class ContactoDAOImplJPA implements ContactoDAO {
       
         predicates.add(qb.like(contacto.<String>get("nombre"), "%" + nombre + "%"));
         predicates.add(qb.equal(contacto.<Proveedor>get("proveedorId"), proveedor));
+        predicates.add(qb.equal(contacto.<Boolean>get("markfordelete"), false));
 
         cq.select(contacto).where(predicates.toArray(new Predicate[]{}));
         //cq.orderBy(qb.desc(proveedor.get("fechaAlta").as(Date.class)));

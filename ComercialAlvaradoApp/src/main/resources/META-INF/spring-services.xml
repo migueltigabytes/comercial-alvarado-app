@@ -22,6 +22,8 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     <property name="contactoDao" ref="contactoDao"/>    
     </bean>
     
-    
+    <bean id="categoriaServices" class="pe.calvarado.gestion.services.impl.CategoriaServicesImpl">
+    <property name="categoriaDao" ref="categoriaDao"/>
+    </bean>
     
 </beans>
