@@ -9,6 +9,11 @@ import pe.calvarado.gestion.entities.Categoria;
 import pe.calvarado.gestion.util.JPAUtil;
 import pe.calvarado.gestion.util.messages.UIMessages;
 
+/**
+ * Implementación de CategoriaDAO
+ * @author DIEGOALV
+ */
+
 public class CategoriaDAOImplJPA implements CategoriaDAO {
 
     private EntityManager em;
