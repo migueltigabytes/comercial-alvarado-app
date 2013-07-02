@@ -12,7 +12,7 @@ import pe.calvarado.gestion.util.messages.UIMessages;
 public class CategoriaDAOImplJPA implements CategoriaDAO {
 
     private EntityManager em;
-    private static Logger log = Logger.getLogger(CategoriaDAOImplJPA.class);
+    private static Logger log = Logger.getLogger(ContactoDAOImplJPA.class);
 
     public CategoriaDAOImplJPA() {
         this.em = JPAUtil.getEntityManager();
@@ -49,8 +49,8 @@ public class CategoriaDAOImplJPA implements CategoriaDAO {
 
     @Override
     public String update(Categoria categoria) {
-        String mensaje = null;
-        log.trace("Actualizando categoria...");
+       String mensaje = null;
+        log.trace("Actualizando contacto...");
         if(!em.isOpen()) { em = JPAUtil.getEntityManager(); }
 
         try {
