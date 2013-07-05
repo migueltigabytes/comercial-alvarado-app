@@ -57,6 +57,10 @@ public class dialogRegistrarFabricante extends javax.swing.JDialog {
         btnRegistrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registrar");
+        setIconImages(null);
+        setName("dialogRegistrarFabricante"); // NOI18N
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Registrar Fabricante"));
 
