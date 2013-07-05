@@ -6,7 +6,9 @@ package pe.calvarado.gestion.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import org.apache.log4j.Logger;
 import pe.calvarado.gestion.entities.Fabricante;
@@ -55,16 +57,25 @@ public class dialogRegistrarFabricante extends javax.swing.JDialog {
         btnRegistrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("123");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Registrar Fabricante"));
 
         jLabel1.setText("Nombre");
 
+        txtNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtNombre.setNextFocusableComponent(txtAreaDescripcion);
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombreKeyPressed(evt);
+            }
+        });
+
         jLabel2.setText("Descripción");
 
+        txtAreaDescripcion.setEditable(false);
         txtAreaDescripcion.setColumns(20);
         txtAreaDescripcion.setRows(5);
+        txtAreaDescripcion.setEnabled(false);
         jScrollPane1.setViewportView(txtAreaDescripcion);
 
         lblErrorNombre.setForeground(new java.awt.Color(255, 0, 0));
@@ -125,8 +136,6 @@ public class dialogRegistrarFabricante extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jLabel1.getAccessibleContext().setAccessibleName("Nombre");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,8 +146,6 @@ public class dialogRegistrarFabricante extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-
-        jPanel1.getAccessibleContext().setAccessibleName("Registrar Fabricante");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -167,6 +174,27 @@ public class dialogRegistrarFabricante extends javax.swing.JDialog {
         }               
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
+  
+    private void validarSiCajaDeTextoEsVacia(String texto, JTextField cajita, JLabel labelDeError, JTextArea siguiente_focus, int ultimo) {
+        if (!Validar.esVacio(texto) && !Validar.validarVacio(texto)) {
+            if (ultimo == NO_ULTIMO) {
+                siguiente_focus.setEnabled(true);
+                siguiente_focus.setEditable(true);
+                siguiente_focus.requestFocus(); 
+            }
+            labelDeError.setText("");
+            labelDeError.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/calvarado/gestion/view/images/check.png")));
+        } else {
+            cajita.requestFocus();     
+        }
+    }
+        
+    
+    private void txtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyPressed
+         if(evt.getKeyCode()==evt.VK_ENTER){
+           validarSiCajaDeTextoEsVacia(txtNombre.getText(), txtNombre, lblErrorNombre, txtAreaDescripcion, NO_ULTIMO);
+        } 
+    }//GEN-LAST:event_txtNombreKeyPressed
 
       public boolean esValidoElFormulario(){
         /* VALIDAMOS QUE ESTEN COMPLETADOS TODOS LOS CAMPOS OBLIGATORIOS */
