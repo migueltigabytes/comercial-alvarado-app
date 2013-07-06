@@ -2,6 +2,7 @@
 package pe.calvarado.gestion.services;
 
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import pe.calvarado.gestion.entities.Categoria;
 
 public interface CategoriaServices {
@@ -10,6 +11,6 @@ public interface CategoriaServices {
      public String insert(Categoria categoria);
      public String update(Categoria categoria);
      public Categoria get(Integer categoria_id);    
-    
+     public DefaultComboBoxModel combo();
     
 }

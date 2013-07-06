@@ -159,6 +159,21 @@ public class dialogGestionarProveedor extends javax.swing.JDialog implements Sta
         });
         jScrollPane1.setViewportView(tblProveedor);
 
+        jTabbedPane1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTabbedPane1FocusGained(evt);
+            }
+        });
+        jTabbedPane1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jTabbedPane1AncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
         jLabel1.setText("Código de Proveedor");
 
         txtCodigoProveedor.setEditable(false);
@@ -345,7 +360,6 @@ public class dialogGestionarProveedor extends javax.swing.JDialog implements Sta
                     .addGroup(panelDatosProveedorLayout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
                 .addGroup(panelDatosProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
@@ -354,23 +368,20 @@ public class dialogGestionarProveedor extends javax.swing.JDialog implements Sta
                     .addComponent(btnEliminar))
                 .addGap(18, 18, 18)
                 .addGroup(panelDatosProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelDatosProveedorLayout.createSequentialGroup()
-                        .addGroup(panelDatosProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel12)
-                            .addComponent(comboDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnModificar))
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDatosProveedorLayout.createSequentialGroup()
-                        .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                    .addGroup(panelDatosProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(jLabel12)
+                        .addComponent(comboDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnModificar))
+                    .addComponent(txtCelular, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(panelDatosProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtNextel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnActualizar))
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Datos de Proveedor", panelDatosProveedor);
@@ -392,7 +403,7 @@ public class dialogGestionarProveedor extends javax.swing.JDialog implements Sta
 
         jLabel20.setText("Buscar por Nombre");
 
-        btnBuscarContacto.setText("Bucar");
+        btnBuscarContacto.setText("Buscar");
         btnBuscarContacto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarContactoActionPerformed(evt);
@@ -866,14 +877,13 @@ public class dialogGestionarProveedor extends javax.swing.JDialog implements Sta
     }//GEN-LAST:event_btnRegistrarContactoActionPerformed
 
     private void btnBuscarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarContactoActionPerformed
-        String buscar = txtBuscarContacto.getText();
+        String nomnbreContacto = txtBuscarContacto.getText();
         List<Contacto> lista = new ArrayList<>();
-
-        lista = contactoServices.listarporNombre(buscar, proveedorSelected);
+        lista = contactoServices.listarporNombre(nomnbreContacto, proveedorSelected);
 
         cargarTablaContacto(lista);
         if (lista.isEmpty()) {
-            JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("noProveedorResults"), UIMessages.getErrorMessage("defaultErrorTitle"), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("noContactoResults"), UIMessages.getErrorMessage("defaultErrorTitle"), JOptionPane.ERROR_MESSAGE);
             limpiarUpdateContacto();
             habilitarCamposContacto(false);
             txtBuscar.requestFocus();
@@ -971,6 +981,17 @@ public class dialogGestionarProveedor extends javax.swing.JDialog implements Sta
             JOptionPane.showMessageDialog(this, UIMessages.getInfoMessage("noItemSelectedContact"));
         }
     }//GEN-LAST:event_btnDeleteContactoActionPerformed
+
+    private void jTabbedPane1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTabbedPane1AncestorAdded
+        log.info("EVENTO ANCSESTOR"); 
+        List<Contacto> lista;
+        lista = contactoServices.listarporNombre("", proveedorSelected);
+        cargarTablaContacto(lista);
+    }//GEN-LAST:event_jTabbedPane1AncestorAdded
+
+    private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
+       log.info("EVENTO!!");
+    }//GEN-LAST:event_jTabbedPane1FocusGained
 
     private void limpiarUpdateContacto() {
         txtUpdateCodigo.setText("");

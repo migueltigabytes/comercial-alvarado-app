@@ -2,6 +2,7 @@
 package pe.calvarado.gestion.services.impl;
 
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import pe.calvarado.gestion.dao.CategoriaDAO;
 import pe.calvarado.gestion.entities.Categoria;
 import pe.calvarado.gestion.services.CategoriaServices;
@@ -32,6 +33,11 @@ public class CategoriaServicesImpl implements CategoriaServices {
     @Override
     public Categoria get(Integer categoria_id) {
         return categoriaDao.get(categoria_id);
+    }
+
+    @Override
+    public DefaultComboBoxModel combo() {
+       return categoriaDao.combo();
     }
     
 }
