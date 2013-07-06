@@ -18,6 +18,8 @@ import pe.calvarado.gestion.util.messages.UIMessages;
  *
  * @author DIEGOALV
  */
+
+
 public class CategoriaDAOImplJPA implements CategoriaDAO{
     
     private EntityManager em;
@@ -101,6 +103,10 @@ public class CategoriaDAOImplJPA implements CategoriaDAO{
         
         return model;
         
+    }
+    
+    public void funcionDemo(){
+    
     }
     
     
