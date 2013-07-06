@@ -239,7 +239,7 @@ public class dialogGestionarCategorias extends javax.swing.JDialog {
         
         if(comboCategoriaPrincipal.getSelectedIndex()>0){
             Categoria catPadre = (Categoria)comboCategoriaPrincipal.getSelectedItem();
-            categoria.setCategoriaPadreId(catPadre);
+//            categoria.setCategoriaPadreId(catPadre);
         }
         
         mensaje = categoriaServices.insert(categoria);
