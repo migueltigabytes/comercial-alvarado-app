@@ -33,8 +33,10 @@ public class AtributoTipo implements Serializable {
     @Basic(optional = false)
     @Column(name = "atributo_tipo_id")
     private Integer atributoTipoId;
+    @Basic(optional = false)
     @Column(name = "tipo")
     private String tipo;
+    @Basic(optional = false)
     @Column(name = "descripcion")
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "atributoTipoId")
@@ -45,6 +47,12 @@ public class AtributoTipo implements Serializable {
 
     public AtributoTipo(Integer atributoTipoId) {
         this.atributoTipoId = atributoTipoId;
+    }
+
+    public AtributoTipo(Integer atributoTipoId, String tipo, String descripcion) {
+        this.atributoTipoId = atributoTipoId;
+        this.tipo = tipo;
+        this.descripcion = descripcion;
     }
 
     public Integer getAtributoTipoId() {

@@ -44,10 +44,17 @@ public class Atributo implements Serializable {
     private String descripcion;
     @Column(name = "integer_value")
     private Integer integerValue;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "float_value")
-    private Integer floatValue;
+    private Float floatValue;
     @Column(name = "string_value")
-    private Integer stringValue;
+    private String stringValue;
+    @Basic(optional = false)
+    @Column(name = "comparable")
+    private boolean comparable;
+    @Basic(optional = false)
+    @Column(name = "searchable")
+    private boolean searchable;
     @ManyToMany(mappedBy = "atributoList")
     private List<Producto> productoList;
     @JoinColumn(name = "atributo_tipo_id", referencedColumnName = "atributo_tipo_id")
@@ -61,10 +68,12 @@ public class Atributo implements Serializable {
         this.atributo = atributo;
     }
 
-    public Atributo(Integer atributo, String nombre, String identificador) {
+    public Atributo(Integer atributo, String nombre, String identificador, boolean comparable, boolean searchable) {
         this.atributo = atributo;
         this.nombre = nombre;
         this.identificador = identificador;
+        this.comparable = comparable;
+        this.searchable = searchable;
     }
 
     public Integer getAtributo() {
@@ -107,20 +116,36 @@ public class Atributo implements Serializable {
         this.integerValue = integerValue;
     }
 
-    public Integer getFloatValue() {
+    public Float getFloatValue() {
         return floatValue;
     }
 
-    public void setFloatValue(Integer floatValue) {
+    public void setFloatValue(Float floatValue) {
         this.floatValue = floatValue;
     }
 
-    public Integer getStringValue() {
+    public String getStringValue() {
         return stringValue;
     }
 
-    public void setStringValue(Integer stringValue) {
+    public void setStringValue(String stringValue) {
         this.stringValue = stringValue;
+    }
+
+    public boolean getComparable() {
+        return comparable;
+    }
+
+    public void setComparable(boolean comparable) {
+        this.comparable = comparable;
+    }
+
+    public boolean getSearchable() {
+        return searchable;
+    }
+
+    public void setSearchable(boolean searchable) {
+        this.searchable = searchable;
     }
 
     public List<Producto> getProductoList() {

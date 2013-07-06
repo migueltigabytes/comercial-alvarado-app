@@ -61,16 +61,16 @@ public class Producto implements Serializable {
     private Date fechaUpdate;
     @Column(name = "MARKFORDELETE")
     private Boolean markfordelete;
-    @JoinTable(name = "producto_has_atributo_id", joinColumns = {
-        @JoinColumn(name = "producto_id", referencedColumnName = "producto_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "atributo", referencedColumnName = "atributo")})
-    @ManyToMany
-    private List<Atributo> atributoList;
-    @JoinTable(name = "producto_has_categoria", joinColumns = {
+    @JoinTable(name = "producto_categoria", joinColumns = {
         @JoinColumn(name = "producto_id", referencedColumnName = "producto_id")}, inverseJoinColumns = {
         @JoinColumn(name = "categoria_id", referencedColumnName = "categoria_id")})
     @ManyToMany
     private List<Categoria> categoriaList;
+    @JoinTable(name = "producto_atributo", joinColumns = {
+        @JoinColumn(name = "producto_id", referencedColumnName = "producto_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "atributo", referencedColumnName = "atributo")})
+    @ManyToMany
+    private List<Atributo> atributoList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "productoId")
     private ProductoCombo productoCombo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productoId")
@@ -168,20 +168,20 @@ public class Producto implements Serializable {
         this.markfordelete = markfordelete;
     }
 
-    public List<Atributo> getAtributoList() {
-        return atributoList;
-    }
-
-    public void setAtributoList(List<Atributo> atributoList) {
-        this.atributoList = atributoList;
-    }
-
     public List<Categoria> getCategoriaList() {
         return categoriaList;
     }
 
     public void setCategoriaList(List<Categoria> categoriaList) {
         this.categoriaList = categoriaList;
+    }
+
+    public List<Atributo> getAtributoList() {
+        return atributoList;
+    }
+
+    public void setAtributoList(List<Atributo> atributoList) {
+        this.atributoList = atributoList;
     }
 
     public ProductoCombo getProductoCombo() {

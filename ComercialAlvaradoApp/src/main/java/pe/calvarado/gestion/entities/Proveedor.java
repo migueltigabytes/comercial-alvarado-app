@@ -1,3 +1,7 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package pe.calvarado.gestion.entities;
 
 import java.io.Serializable;
@@ -45,6 +49,7 @@ public class Proveedor implements Serializable {
     private String telefono;
     @Column(name = "fax")
     private String fax;
+    @Basic(optional = false)
     @Column(name = "celular")
     private String celular;
     @Column(name = "nextel")
@@ -76,12 +81,13 @@ public class Proveedor implements Serializable {
         this.proveedorId = proveedorId;
     }
 
-    public Proveedor(Integer proveedorId, String nombre, String razonSocial, String direccion, String telefono, String ruc, boolean markfordelete) {
+    public Proveedor(Integer proveedorId, String nombre, String razonSocial, String direccion, String telefono, String celular, String ruc, boolean markfordelete) {
         this.proveedorId = proveedorId;
         this.nombre = nombre;
         this.razonSocial = razonSocial;
         this.direccion = direccion;
         this.telefono = telefono;
+        this.celular = celular;
         this.ruc = ruc;
         this.markfordelete = markfordelete;
     }
@@ -236,7 +242,7 @@ public class Proveedor implements Serializable {
 
     @Override
     public String toString() {
-        return getProveedorId().toString();
+        return "pe.calvarado.gestion.entities.Proveedor[ proveedorId=" + proveedorId + " ]";
     }
     
 }

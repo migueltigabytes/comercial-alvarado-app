@@ -35,11 +35,13 @@ public class ProductoOferta implements Serializable {
     @Basic(optional = false)
     @Column(name = "producto_oferta_id")
     private Integer productoOfertaId;
+    @Basic(optional = false)
     @Column(name = "cantidad")
-    private Integer cantidad;
+    private int cantidad;
     @Basic(optional = false)
     @Column(name = "precio_oferta")
     private double precioOferta;
+    @Basic(optional = false)
     @Column(name = "descripcion")
     private String descripcion;
     @Basic(optional = false)
@@ -56,8 +58,9 @@ public class ProductoOferta implements Serializable {
     @Column(name = "fecha_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaUpdate;
+    @Basic(optional = false)
     @Column(name = "en_venta")
-    private Boolean enVenta;
+    private boolean enVenta;
     @JoinColumn(name = "producto_id", referencedColumnName = "producto_id")
     @ManyToOne(optional = false)
     private Producto productoId;
@@ -69,11 +72,14 @@ public class ProductoOferta implements Serializable {
         this.productoOfertaId = productoOfertaId;
     }
 
-    public ProductoOferta(Integer productoOfertaId, double precioOferta, Date fechaInicioOferta, Date fechaAlta) {
+    public ProductoOferta(Integer productoOfertaId, int cantidad, double precioOferta, String descripcion, Date fechaInicioOferta, Date fechaAlta, boolean enVenta) {
         this.productoOfertaId = productoOfertaId;
+        this.cantidad = cantidad;
         this.precioOferta = precioOferta;
+        this.descripcion = descripcion;
         this.fechaInicioOferta = fechaInicioOferta;
         this.fechaAlta = fechaAlta;
+        this.enVenta = enVenta;
     }
 
     public Integer getProductoOfertaId() {
@@ -84,11 +90,11 @@ public class ProductoOferta implements Serializable {
         this.productoOfertaId = productoOfertaId;
     }
 
-    public Integer getCantidad() {
+    public int getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(Integer cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -140,11 +146,11 @@ public class ProductoOferta implements Serializable {
         this.fechaUpdate = fechaUpdate;
     }
 
-    public Boolean getEnVenta() {
+    public boolean getEnVenta() {
         return enVenta;
     }
 
-    public void setEnVenta(Boolean enVenta) {
+    public void setEnVenta(boolean enVenta) {
         this.enVenta = enVenta;
     }
 

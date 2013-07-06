@@ -37,8 +37,9 @@ public class ProductoCombo implements Serializable {
     private Integer productoComboId;
     @Column(name = "producto_hijo_id")
     private Integer productoHijoId;
+    @Basic(optional = false)
     @Column(name = "cantidad")
-    private Integer cantidad;
+    private int cantidad;
     @Basic(optional = false)
     @Column(name = "secuencia")
     private short secuencia;
@@ -70,8 +71,9 @@ public class ProductoCombo implements Serializable {
         this.productoComboId = productoComboId;
     }
 
-    public ProductoCombo(Integer productoComboId, short secuencia, Date fechaInicioVenta, Date fechaAlta, int enVenta) {
+    public ProductoCombo(Integer productoComboId, int cantidad, short secuencia, Date fechaInicioVenta, Date fechaAlta, int enVenta) {
         this.productoComboId = productoComboId;
+        this.cantidad = cantidad;
         this.secuencia = secuencia;
         this.fechaInicioVenta = fechaInicioVenta;
         this.fechaAlta = fechaAlta;
@@ -94,11 +96,11 @@ public class ProductoCombo implements Serializable {
         this.productoHijoId = productoHijoId;
     }
 
-    public Integer getCantidad() {
+    public int getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(Integer cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
