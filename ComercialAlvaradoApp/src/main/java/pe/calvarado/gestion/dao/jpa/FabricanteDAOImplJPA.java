@@ -1,10 +1,16 @@
 package pe.calvarado.gestion.dao.jpa;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import org.apache.log4j.Logger;
 import pe.calvarado.gestion.dao.FabricanteDAO;
 import pe.calvarado.gestion.entities.Fabricante;
+import pe.calvarado.gestion.entities.Proveedor;
 import pe.calvarado.gestion.util.JPAUtil;
 import pe.calvarado.gestion.util.messages.UIMessages;
 
@@ -87,6 +93,30 @@ public class FabricanteDAOImplJPA implements FabricanteDAO{
         return em.find(Fabricante.class, fabricante_id);
     }
     
+    
+        @Override
+    public List<Fabricante> getFabricantesByParams(String nombre) {
+                    if(!em.isOpen()) { em = JPAUtil.getEntityManager(); } 
+        
+                    CriteriaBuilder qb  = em.getCriteriaBuilder();
+		    CriteriaQuery cq    = qb.createQuery();
+		    Root<Fabricante> fabricante = cq.from(Proveedor.class);
+                    List<Predicate> predicates = new ArrayList<>();
+        
+                        if(nombre != null && !nombre.isEmpty()){
+                            predicates.add(qb.like(fabricante.<String>get("nombre"),"%"+nombre+"%"));
+                        }                
+                        predicates.add(qb.equal(fabricante.<Boolean>get("markfordelete"), false));
+                        
+                cq.select(fabricante)
+		            .where(predicates.toArray(new Predicate[]{}));
+                            //cq.orderBy(qb.desc(proveedor.get("fechaAlta").as(Date.class)));
+                            List<Fabricante> fabricanteList =  em.createQuery(cq).getResultList();
+                            em.close();
+                            return fabricanteList;    
+                            
+                            
+    }
     
     
 }

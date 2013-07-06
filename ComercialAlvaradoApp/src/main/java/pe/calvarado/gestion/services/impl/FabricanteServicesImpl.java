@@ -41,4 +41,10 @@ public class FabricanteServicesImpl implements FabricanteServices{
        return fabricanteDao.get(fabricante_id);
     }
     
+    
+    @Override
+    public List<Fabricante> getFabricantesByParams(String nombre) {
+        return fabricanteDao.getFabricantesByParams(nombre );
+    }
+    
 }
