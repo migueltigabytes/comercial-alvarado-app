@@ -7,6 +7,7 @@ package pe.calvarado.gestion.dao.jpa;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.swing.DefaultComboBoxModel;
 import org.apache.log4j.Logger;
 import pe.calvarado.gestion.dao.CategoriaDAO;
 import pe.calvarado.gestion.entities.Categoria;
@@ -81,6 +82,25 @@ public class CategoriaDAOImplJPA implements CategoriaDAO{
             em = JPAUtil.getEntityManager();
         }
         return em.find(Categoria.class, categoria_id);
+    }
+
+    @Override
+    public DefaultComboBoxModel combo() {
+        log.info("Cargando combo categoría..."); 
+        
+        TypedQuery<Categoria> query = em.createQuery("select c From Categoria c WHERE c.markfordelete = ?1", Categoria.class);
+        query.setParameter(1, false);
+        List<Categoria> categoriaList = query.getResultList();
+        
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        model.addElement("Seleccione");
+        for(Categoria categoria:categoriaList){
+            log.info(categoria.getNombre());
+            model.addElement(categoria);
+        }
+        
+        return model;
+        
     }
     
     
