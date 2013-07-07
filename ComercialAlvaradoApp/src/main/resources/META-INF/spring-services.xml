@@ -26,4 +26,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     <property name="categoriaDao" ref="categoriaDao"/>
     </bean>
     
+    <bean id="atributoServices" class="pe.calvarado.gestion.services.impl.AtributoServicesImpl">
+    <property name="atributoDao" ref="atributoDao"/>
+    </bean>
 </beans>

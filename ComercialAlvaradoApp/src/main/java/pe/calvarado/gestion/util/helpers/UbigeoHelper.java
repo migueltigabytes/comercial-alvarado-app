@@ -3,6 +3,7 @@ package pe.calvarado.gestion.util.helpers;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import org.apache.log4j.Logger;
 import pe.calvarado.gestion.entities.Ubigeo;
 
 /**
@@ -13,8 +14,7 @@ import pe.calvarado.gestion.entities.Ubigeo;
  */
 public class UbigeoHelper {
     
-    
-    
+       
     /**
      * Este método sirve para cargar los departamentos en un JComboBox. Crea un modelo en base al List de Ubigeo que recibe y lo retorna.
      * @param ubigeoList , el listado con todo los ubigeo.
@@ -26,9 +26,10 @@ public class UbigeoHelper {
         DefaultComboBoxModel modelCombo = (DefaultComboBoxModel)comboDepto.getModel();
        
         for(Ubigeo ubigeo : ubigeoList){
-            /* Si es departamento*/
+            /* Si es departamento*/ 
             if(ubigeo.getProvinciaId() == 0){
                 modelCombo.addElement(ubigeo);
+                
                 if(selectedUbigeo != null){
                     if(ubigeo.getDeptoId().intValue() == selectedUbigeo.getDeptoId().intValue()){
                         modelCombo.setSelectedItem(ubigeo);

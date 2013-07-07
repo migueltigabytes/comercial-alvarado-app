@@ -511,6 +511,7 @@ public class dialogRegistrarProveedor extends javax.swing.JDialog implements Sta
     }//GEN-LAST:event_comboDeptoItemStateChanged
 
     private void comboProvinciaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboProvinciaItemStateChanged
+   
       if(comboProvincia.getSelectedIndex() > 0){ 
         limpiarCombo(comboDistrito);
         comboDistrito.setModel(UbigeoHelper.cargarComboDistrito(ubigeoList, comboDistrito, comboProvincia, comboDepto,null));
@@ -518,7 +519,8 @@ public class dialogRegistrarProveedor extends javax.swing.JDialog implements Sta
       
       if(comboProvincia.getSelectedIndex() == 0){
           limpiarCombo(comboDistrito);
-      }
+      }  
+      
       
     }//GEN-LAST:event_comboProvinciaItemStateChanged
              
@@ -529,8 +531,26 @@ public class dialogRegistrarProveedor extends javax.swing.JDialog implements Sta
                 JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("requiredField"), UIMessages.getErrorMessage("requiredField_title"), JOptionPane.ERROR_MESSAGE);
                 txtField.requestFocus();
                 return false;
-                }
-          }     
+                }              
+          }   
+          
+          if(!Validar.validarEmail(txtEmail.getText())){
+              JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("invalidEmail"), UIMessages.getErrorMessage(""), JOptionPane.ERROR_MESSAGE);
+              return false;
+          }          
+          if(comboDepto.getSelectedIndex()==0){
+             JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("requiredSelectedDepartamento")); 
+             return false;
+          }
+          if(comboDepto.getSelectedIndex()>0 && comboProvincia.getSelectedIndex()==0){
+             JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("requiredSelectedProvincia"));
+             return false;
+          }
+          if(comboProvincia.getSelectedIndex()>0 && comboDistrito.getSelectedIndex()==0){
+             JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("requiredSelectedDistrito"));
+             return false;
+          }
+                    
           return true;       
     }
      

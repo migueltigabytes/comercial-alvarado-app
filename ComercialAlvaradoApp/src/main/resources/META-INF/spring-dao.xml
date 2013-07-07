@@ -10,4 +10,5 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 <bean   id="ubigeoDao" class="pe.calvarado.gestion.dao.jpa.UbigeoDAOImplJPA"></bean>
 <bean   id="contactoDao" class="pe.calvarado.gestion.dao.jpa.ContactoDAOImplJPA"></bean> 
 <bean   id="categoriaDao" class="pe.calvarado.gestion.dao.jpa.CategoriaDAOImplJPA"></bean>
+<bean   id="atributoDao" class="pe.calvarado.gestion.dao.jpa.AtributoDAOImplJPA"></bean>
 </beans>

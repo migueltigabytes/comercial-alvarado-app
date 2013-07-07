@@ -4,9 +4,8 @@
  */
 package pe.calvarado.gestion.view;
 
-import org.apache.log4j.Logger;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
 import pe.calvarado.gestion.entities.Categoria;
 import pe.calvarado.gestion.services.CategoriaServices;
 import pe.calvarado.gestion.util.SpringUtils;

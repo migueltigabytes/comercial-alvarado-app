@@ -21,7 +21,7 @@ public class frmMainApp extends javax.swing.JFrame {
         dialogRegistrarProveedor moduloProveedor = new dialogRegistrarProveedor(this,true);
         dialogGestionarProveedor gestionarProveedor =  new dialogGestionarProveedor(this,true);
         dialogGestionarCategorias gestionarCategorias = new dialogGestionarCategorias(this,true);
-    
+        dialogGestionarAtributo   gestionarAtributos =  new dialogGestionarAtributo(this,true);
     
     public frmMainApp() {
         initComponents();
@@ -48,6 +48,8 @@ public class frmMainApp extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,6 +105,18 @@ public class frmMainApp extends javax.swing.JFrame {
 
         jMenu3.add(jMenu6);
 
+        jMenu7.setText("Atributos");
+
+        jMenuItem6.setText("Gestionar Atributos");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem6);
+
+        jMenu3.add(jMenu7);
+
         menuBar1.add(jMenu3);
 
         setJMenuBar(menuBar1);
@@ -133,6 +147,10 @@ public class frmMainApp extends javax.swing.JFrame {
         gestionarCategorias.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+       gestionarAtributos.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -158,11 +176,13 @@ public class frmMainApp extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuBar menuBar1;
     // End of variables declaration//GEN-END:variables
 }
