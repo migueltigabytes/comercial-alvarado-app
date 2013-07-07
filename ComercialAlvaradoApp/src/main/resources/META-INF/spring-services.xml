@@ -29,4 +29,10 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     <bean id="atributoServices" class="pe.calvarado.gestion.services.impl.AtributoServicesImpl">
     <property name="atributoDao" ref="atributoDao"/>
     </bean>
+    
+    <bean id="atributoTipoServices" class="pe.calvarado.gestion.services.impl.AtributoTipoServicesImpl">
+    <property name="atributoTipoDao" ref="atributoTipoDao"/>
+    </bean>
+    
+    
 </beans>

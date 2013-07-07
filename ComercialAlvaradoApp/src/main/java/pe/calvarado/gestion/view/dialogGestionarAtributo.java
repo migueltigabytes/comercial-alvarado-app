@@ -8,22 +8,32 @@ import org.apache.log4j.Logger;
 import pe.calvarado.gestion.entities.Atributo;
 import pe.calvarado.gestion.entities.AtributoTipo;
 import pe.calvarado.gestion.services.AtributoServices;
+import pe.calvarado.gestion.services.AtributoTipoServices;
 import pe.calvarado.gestion.util.SpringUtils;
+import pe.calvarado.gestion.util.StandardViewMethods;
 
 /**
  *
  * @author TIGABYTES 005
  */
-public class dialogGestionarAtributo extends javax.swing.JDialog {
+public class dialogGestionarAtributo extends javax.swing.JDialog implements StandardViewMethods {
 
     AtributoServices atributoServices =  (AtributoServices)SpringUtils.getBean("atributoServices");
+    AtributoTipoServices atributoTipoServices = (AtributoTipoServices)SpringUtils.getBean("atributoTipoServices");
     Logger log = Logger.getLogger(dialogGestionarAtributo.class);
     
     public dialogGestionarAtributo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        loadData();
     }
 
+    @Override
+    public void loadData() {
+        comboAtributoTipo.setModel(atributoTipoServices.combo());
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -414,4 +424,6 @@ public class dialogGestionarAtributo extends javax.swing.JDialog {
     private javax.swing.JTextField txtUpdateNombre;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
+
+    
 }
