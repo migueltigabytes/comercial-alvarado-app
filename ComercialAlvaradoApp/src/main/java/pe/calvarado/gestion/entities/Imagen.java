@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pe.calvarado.gestion.entities;
 
 import java.io.Serializable;
@@ -34,7 +30,7 @@ public class Imagen implements Serializable {
     private Integer imagenId;
     @Basic(optional = false)
     @Column(name = "nombre")
-    private int nombre;
+    private String nombre;
     @Basic(optional = false)
     @Column(name = "alto")
     private int alto;
@@ -58,7 +54,7 @@ public class Imagen implements Serializable {
         this.imagenId = imagenId;
     }
 
-    public Imagen(Integer imagenId, int nombre, int alto, int ancho, String rutaImagen, boolean markfordelete) {
+    public Imagen(Integer imagenId, String nombre, int alto, int ancho, String rutaImagen, boolean markfordelete) {
         this.imagenId = imagenId;
         this.nombre = nombre;
         this.alto = alto;
@@ -75,11 +71,11 @@ public class Imagen implements Serializable {
         this.imagenId = imagenId;
     }
 
-    public int getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(int nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
@@ -145,7 +141,7 @@ public class Imagen implements Serializable {
 
     @Override
     public String toString() {
-        return "pe.calvarado.gestion.entities.Imagen[ imagenId=" + imagenId + " ]";
+        return getNombre();
     }
     
 }

@@ -186,7 +186,7 @@ public class Atributo implements Serializable {
 
     @Override
     public String toString() {
-        return getAtributo().toString();
+        return getNombre();
     }
     
 }

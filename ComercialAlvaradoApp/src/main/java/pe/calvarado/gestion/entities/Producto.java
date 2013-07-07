@@ -5,6 +5,7 @@
 package pe.calvarado.gestion.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -41,26 +42,46 @@ public class Producto implements Serializable {
     @Basic(optional = false)
     @Column(name = "producto_id")
     private Integer productoId;
+    @Basic(optional = false)
     @Column(name = "nombre")
     private String nombre;
+    @Basic(optional = false)
     @Column(name = "descripcion")
     private String descripcion;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Basic(optional = false)
     @Column(name = "precio_venta")
-    private Double precioVenta;
+    private BigDecimal precioVenta;
+    @Column(name = "precio_promocion")
+    private BigDecimal precioPromocion;
+    @Column(name = "promocion_desde")
+    @Temporal(TemporalType.DATE)
+    private Date promocionDesde;
+    @Column(name = "promocion_hasta")
+    @Temporal(TemporalType.DATE)
+    private Date promocionHasta;
+    @Basic(optional = false)
     @Column(name = "cantidad")
-    private Integer cantidad;
+    private int cantidad;
     @Basic(optional = false)
     @Column(name = "en_venta")
     private boolean enVenta;
+    @Column(name = "descuento_por_cantidad")
+    private Boolean descuentoPorCantidad;
+    @Basic(optional = false)
+    @Column(name = "alerta_de_stock")
+    private int alertaDeStock;
+    @Basic(optional = false)
     @Column(name = "fecha_alta")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaAlta;
+    @Basic(optional = false)
     @Column(name = "fecha_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaUpdate;
+    @Basic(optional = false)
     @Column(name = "MARKFORDELETE")
-    private Boolean markfordelete;
+    private boolean markfordelete;
     @JoinTable(name = "producto_categoria", joinColumns = {
         @JoinColumn(name = "producto_id", referencedColumnName = "producto_id")}, inverseJoinColumns = {
         @JoinColumn(name = "categoria_id", referencedColumnName = "categoria_id")})
@@ -75,6 +96,9 @@ public class Producto implements Serializable {
     private ProductoCombo productoCombo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productoId")
     private List<Imagen> imagenList;
+    @JoinColumn(name = "categoria_default_id", referencedColumnName = "categoria_id")
+    @ManyToOne(optional = false)
+    private Categoria categoriaDefaultId;
     @JoinColumn(name = "fabricante_id", referencedColumnName = "fabricante_id")
     @ManyToOne
     private Fabricante fabricanteId;
@@ -91,9 +115,17 @@ public class Producto implements Serializable {
         this.productoId = productoId;
     }
 
-    public Producto(Integer productoId, boolean enVenta) {
+    public Producto(Integer productoId, String nombre, String descripcion, BigDecimal precioVenta, int cantidad, boolean enVenta, int alertaDeStock, Date fechaAlta, Date fechaUpdate, boolean markfordelete) {
         this.productoId = productoId;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precioVenta = precioVenta;
+        this.cantidad = cantidad;
         this.enVenta = enVenta;
+        this.alertaDeStock = alertaDeStock;
+        this.fechaAlta = fechaAlta;
+        this.fechaUpdate = fechaUpdate;
+        this.markfordelete = markfordelete;
     }
 
     public Integer getProductoId() {
@@ -120,19 +152,43 @@ public class Producto implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Double getPrecioVenta() {
+    public BigDecimal getPrecioVenta() {
         return precioVenta;
     }
 
-    public void setPrecioVenta(Double precioVenta) {
+    public void setPrecioVenta(BigDecimal precioVenta) {
         this.precioVenta = precioVenta;
     }
 
-    public Integer getCantidad() {
+    public BigDecimal getPrecioPromocion() {
+        return precioPromocion;
+    }
+
+    public void setPrecioPromocion(BigDecimal precioPromocion) {
+        this.precioPromocion = precioPromocion;
+    }
+
+    public Date getPromocionDesde() {
+        return promocionDesde;
+    }
+
+    public void setPromocionDesde(Date promocionDesde) {
+        this.promocionDesde = promocionDesde;
+    }
+
+    public Date getPromocionHasta() {
+        return promocionHasta;
+    }
+
+    public void setPromocionHasta(Date promocionHasta) {
+        this.promocionHasta = promocionHasta;
+    }
+
+    public int getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(Integer cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -142,6 +198,22 @@ public class Producto implements Serializable {
 
     public void setEnVenta(boolean enVenta) {
         this.enVenta = enVenta;
+    }
+
+    public Boolean getDescuentoPorCantidad() {
+        return descuentoPorCantidad;
+    }
+
+    public void setDescuentoPorCantidad(Boolean descuentoPorCantidad) {
+        this.descuentoPorCantidad = descuentoPorCantidad;
+    }
+
+    public int getAlertaDeStock() {
+        return alertaDeStock;
+    }
+
+    public void setAlertaDeStock(int alertaDeStock) {
+        this.alertaDeStock = alertaDeStock;
     }
 
     public Date getFechaAlta() {
@@ -160,11 +232,11 @@ public class Producto implements Serializable {
         this.fechaUpdate = fechaUpdate;
     }
 
-    public Boolean getMarkfordelete() {
+    public boolean getMarkfordelete() {
         return markfordelete;
     }
 
-    public void setMarkfordelete(Boolean markfordelete) {
+    public void setMarkfordelete(boolean markfordelete) {
         this.markfordelete = markfordelete;
     }
 
@@ -198,6 +270,14 @@ public class Producto implements Serializable {
 
     public void setImagenList(List<Imagen> imagenList) {
         this.imagenList = imagenList;
+    }
+
+    public Categoria getCategoriaDefaultId() {
+        return categoriaDefaultId;
+    }
+
+    public void setCategoriaDefaultId(Categoria categoriaDefaultId) {
+        this.categoriaDefaultId = categoriaDefaultId;
     }
 
     public Fabricante getFabricanteId() {

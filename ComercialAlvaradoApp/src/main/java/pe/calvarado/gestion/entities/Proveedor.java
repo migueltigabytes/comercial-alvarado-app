@@ -242,7 +242,7 @@ public class Proveedor implements Serializable {
 
     @Override
     public String toString() {
-        return proveedorId.toString();
+        return getNombre();
     }
     
 }

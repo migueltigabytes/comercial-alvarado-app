@@ -151,7 +151,7 @@ public class Contacto implements Serializable {
 
     @Override
     public String toString() {
-        return "pe.calvarado.gestion.entities.Contacto[ contactoId=" + contactoId + " ]";
+        return getNombre();
     }
     
 }

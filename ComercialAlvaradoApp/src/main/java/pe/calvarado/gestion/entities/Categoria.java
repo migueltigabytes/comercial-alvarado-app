@@ -7,14 +7,18 @@ package pe.calvarado.gestion.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -32,9 +36,11 @@ public class Categoria implements Serializable {
     @Basic(optional = false)
     @Column(name = "categoria_id")
     private Integer categoriaId;
-    @Basic(optional = false)
-    @Column(name = "categoria_padre_id")
-    private int categoriaPadreId;
+    @OneToMany(mappedBy = "categoriaPadreId")
+    private List<Categoria> categoriaList;
+    @JoinColumn(name = "categoria_padre_id", referencedColumnName = "categoria_id")
+    @ManyToOne
+    private Categoria categoriaPadreId;
     @Basic(optional = false)
     @Column(name = "nombre")
     private String nombre;
@@ -48,6 +54,8 @@ public class Categoria implements Serializable {
     private boolean markfordelete;
     @ManyToMany(mappedBy = "categoriaList")
     private List<Producto> productoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoriaDefaultId")
+    private List<Producto> productoList1;
 
     public Categoria() {
     }
@@ -56,7 +64,7 @@ public class Categoria implements Serializable {
         this.categoriaId = categoriaId;
     }
 
-    public Categoria(Integer categoriaId, int categoriaPadreId, String nombre, int nivel, boolean markfordelete) {
+    public Categoria(Integer categoriaId, Categoria categoriaPadreId, String nombre, int nivel, boolean markfordelete) {
         this.categoriaId = categoriaId;
         this.categoriaPadreId = categoriaPadreId;
         this.nombre = nombre;
@@ -72,11 +80,11 @@ public class Categoria implements Serializable {
         this.categoriaId = categoriaId;
     }
 
-    public int getCategoriaPadreId() {
+    public Categoria getCategoriaPadreId() {
         return categoriaPadreId;
     }
 
-    public void setCategoriaPadreId(int categoriaPadreId) {
+    public void setCategoriaPadreId(Categoria categoriaPadreId) {
         this.categoriaPadreId = categoriaPadreId;
     }
 
@@ -120,6 +128,14 @@ public class Categoria implements Serializable {
         this.productoList = productoList;
     }
 
+    public List<Producto> getProductoList1() {
+        return productoList1;
+    }
+
+    public void setProductoList1(List<Producto> productoList1) {
+        this.productoList1 = productoList1;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -142,7 +158,7 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return "pe.calvarado.gestion.entities.Categoria[ categoriaId=" + categoriaId + " ]";
+        return getNombre();
     }
     
 }
