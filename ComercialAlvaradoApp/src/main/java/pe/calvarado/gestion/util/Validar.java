@@ -45,7 +45,7 @@ public class Validar {
         
         return es_numerico;
  
-    }
+    } 
     
     
     public static boolean esUnDatoInteger(String dato){
