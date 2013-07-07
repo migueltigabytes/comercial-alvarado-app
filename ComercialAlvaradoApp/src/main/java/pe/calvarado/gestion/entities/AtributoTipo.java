@@ -109,7 +109,7 @@ public class AtributoTipo implements Serializable {
 
     @Override
     public String toString() {
-        return "pe.calvarado.gestion.entities.AtributoTipo[ atributoTipoId=" + atributoTipoId + " ]";
+        return getTipo();
     }
     
 }

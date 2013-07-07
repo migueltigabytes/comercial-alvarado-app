@@ -118,7 +118,7 @@ public class Fabricante implements Serializable {
 
     @Override
     public String toString() {
-        return "pe.calvarado.gestion.entities.Fabricante[ fabricanteId=" + fabricanteId + " ]";
+        return getNombre();
     }
     
 }
