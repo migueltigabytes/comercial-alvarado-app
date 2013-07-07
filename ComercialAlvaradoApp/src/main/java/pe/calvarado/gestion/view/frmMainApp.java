@@ -23,7 +23,7 @@ public class frmMainApp extends javax.swing.JFrame {
         dialogGestionarCategorias gestionarCategorias = new dialogGestionarCategorias(this,true);
         dialogRegistrarFabricante registrarFabricante = new dialogRegistrarFabricante(this, true);
         dialogGestionarFabricante gestionarFabricante = new dialogGestionarFabricante(this, true);
-    
+        dialogGestionarAtributo   gestionarAtributos =  new dialogGestionarAtributo(this,true);
     
     public frmMainApp() {
         initComponents();
@@ -47,6 +47,7 @@ public class frmMainApp extends javax.swing.JFrame {
         jMenu6 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,6 +114,15 @@ public class frmMainApp extends javax.swing.JFrame {
         jMenu3.add(jMenu6);
 
         jMenu7.setText("Atributos");
+
+        jMenuItem6.setText("Gestionar Atributos");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem6);
+
         jMenu3.add(jMenu7);
 
         menuBar1.add(jMenu3);
@@ -153,6 +163,10 @@ public class frmMainApp extends javax.swing.JFrame {
         gestionarFabricante.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        gestionarAtributos.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
   
     public static void main(String args[]) {
         
@@ -182,6 +196,7 @@ public class frmMainApp extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuBar menuBar1;
     // End of variables declaration//GEN-END:variables
 }

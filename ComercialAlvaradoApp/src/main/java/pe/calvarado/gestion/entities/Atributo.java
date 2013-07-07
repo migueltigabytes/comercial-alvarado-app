@@ -186,7 +186,7 @@ public class Atributo implements Serializable {
 
     @Override
     public String toString() {
-        return "pe.calvarado.gestion.entities.Atributo[ atributo=" + atributo + " ]";
+        return getAtributo().toString();
     }
     
 }

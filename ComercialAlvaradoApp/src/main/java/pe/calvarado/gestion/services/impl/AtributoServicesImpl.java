@@ -40,5 +40,10 @@ public class AtributoServicesImpl implements AtributoServices{
     public Atributo get(Integer atributo_id) {
        return atributoDao.get(atributo_id);
     }
+
+    @Override
+    public List<Atributo> listarPorNombre(String nombre) {
+        return atributoDao.listarPorNombre(nombre);
+    }
     
 }

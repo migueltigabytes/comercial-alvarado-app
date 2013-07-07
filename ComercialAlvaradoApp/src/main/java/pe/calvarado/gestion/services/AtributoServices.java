@@ -15,5 +15,6 @@ public interface AtributoServices {
      public List<Atributo> listar();
      public String insert(Atributo atributo);
      public String update(Atributo atributo);
-     public Atributo get(Integer atributo_id);   
+     public Atributo get(Integer atributo_id);  
+     public List<Atributo> listarPorNombre(String nombre);
 }
