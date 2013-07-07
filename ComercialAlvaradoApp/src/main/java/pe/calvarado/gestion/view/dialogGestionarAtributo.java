@@ -87,6 +87,7 @@ public class dialogGestionarAtributo extends javax.swing.JDialog implements Stan
         checkUpdateSearchable = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestionar atributos");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestionar Atributos"));
 
