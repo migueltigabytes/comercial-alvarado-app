@@ -32,7 +32,7 @@ public class FabricanteDAOImplJPA implements FabricanteDAO{
         
     @Override
     public List<Fabricante> listar() {
-        TypedQuery<Fabricante> query = em.createQuery("select f From Fabricante f",Fabricante.class);
+        TypedQuery<Fabricante> query = em.createQuery("select f From Fabricante f WHERE f.markfordelete = 0",Fabricante.class);
         return query.getResultList();
     }
     
@@ -64,6 +64,8 @@ public class FabricanteDAOImplJPA implements FabricanteDAO{
 
     @Override
     public String update(Fabricante fabricante) {
+         if(!em.isOpen()) {  em = JPAUtil.getEntityManager(); }
+        
               String mensaje = null;
               log.trace("Actualizando fabricante...");
                 
@@ -83,7 +85,10 @@ public class FabricanteDAOImplJPA implements FabricanteDAO{
                     log.error("Error al actualizar fabricante...");
                 }
                 
-                return mensaje;
+               finally{
+                   em.close();
+                   return mensaje;
+               }
     }
 
     @Override
@@ -100,7 +105,7 @@ public class FabricanteDAOImplJPA implements FabricanteDAO{
         
                     CriteriaBuilder qb  = em.getCriteriaBuilder();
 		    CriteriaQuery cq    = qb.createQuery();
-		    Root<Fabricante> fabricante = cq.from(Proveedor.class);
+		    Root<Fabricante> fabricante = cq.from(Fabricante.class);
                     List<Predicate> predicates = new ArrayList<>();
         
                         if(nombre != null && !nombre.isEmpty()){
