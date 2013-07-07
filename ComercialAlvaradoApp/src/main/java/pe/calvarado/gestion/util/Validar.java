@@ -48,6 +48,32 @@ public class Validar {
     }
     
     
+    public static boolean esUnDatoInteger(String dato){
+        boolean es_integer = true;
+        
+        try{
+            Integer.parseInt(dato);
+        }catch(Exception ex){
+            es_integer = false;
+        }
+        
+        return es_integer;
+ 
+    }
+    
+    public static boolean esUnDatoFloat(String dato){
+        boolean es_float = true;
+        
+        try{
+            Float.parseFloat(dato);
+        }catch(Exception ex){
+            es_float = false;
+        }
+        return es_float;
+    }
+    
+    
+    
     
 
     public static boolean esVacio(String cadena) {
