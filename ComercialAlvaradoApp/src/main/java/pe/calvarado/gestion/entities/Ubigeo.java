@@ -131,7 +131,7 @@ public class Ubigeo implements Serializable {
 
     @Override
     public String toString() {
-        return "pe.calvarado.gestion.entities.Ubigeo[ ubigeoId=" + ubigeoId + " ]";
+        return getNombre();
     }
     
 }
