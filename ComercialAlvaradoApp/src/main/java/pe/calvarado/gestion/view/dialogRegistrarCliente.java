@@ -334,6 +334,11 @@ public class dialogRegistrarCliente extends javax.swing.JDialog implements Stand
        cliente.setDireccionList(direccionList); 
        cliente.setFechaAlta(new Date());    
         
+       for(Direccion direccion : direccionList){
+           direccion.setClienteId(cliente);
+       }
+       
+       
        mensaje = clienteServices.insert(cliente);
        
        if(mensaje != null){
@@ -356,7 +361,7 @@ public class dialogRegistrarCliente extends javax.swing.JDialog implements Stand
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Direccion direccion = new Direccion();        
         
-        Ubigeo ubigeo = (Ubigeo)comboDistrito.getSelectedItem();        
+        Ubigeo ubigeo = (Ubigeo)comboDistrito.getSelectedItem(); 
         direccion.setDireccion1(txtDireccion1.getText());
         direccion.setDireccion2(txtDireccion2.getText());
         direccion.setTelefono1(txtTelefono1.getText());
