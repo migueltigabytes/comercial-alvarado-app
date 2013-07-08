@@ -5,6 +5,7 @@
 package pe.calvarado.gestion.services.impl;
 
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import pe.calvarado.gestion.dao.AtributoDAO;
 import pe.calvarado.gestion.entities.Atributo;
 import pe.calvarado.gestion.services.AtributoServices;
@@ -44,6 +45,11 @@ public class AtributoServicesImpl implements AtributoServices{
     @Override
     public List<Atributo> listarPorNombre(String nombre) {
         return atributoDao.listarPorNombre(nombre);
+    }
+
+    @Override
+    public DefaultComboBoxModel combo() {
+        return atributoDao.combo();
     }
     
 }

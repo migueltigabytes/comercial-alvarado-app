@@ -1,6 +1,7 @@
 package pe.calvarado.gestion.services.impl;
 
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import pe.calvarado.gestion.dao.ProveedorDAO;
 import pe.calvarado.gestion.entities.Proveedor;
 import pe.calvarado.gestion.services.ProveedorServices;
@@ -41,6 +42,11 @@ public class ProveedorServicesImpl implements ProveedorServices {
     @Override
     public List<Proveedor> getProveedoresByParams(String nombre, String razonSocial, String ruc) {
         return proveedorDao.getProveedoresByParams(nombre, razonSocial, ruc);
+    }
+
+    @Override
+    public DefaultComboBoxModel combo() {
+        return proveedorDao.combo();
     }
     
     

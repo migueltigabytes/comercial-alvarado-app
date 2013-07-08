@@ -5,6 +5,7 @@
 package pe.calvarado.gestion.services;
 
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import pe.calvarado.gestion.entities.Atributo;
 
 /**
@@ -17,4 +18,5 @@ public interface AtributoServices {
      public String update(Atributo atributo);
      public Atributo get(Integer atributo_id);  
      public List<Atributo> listarPorNombre(String nombre);
+      public DefaultComboBoxModel combo();
 }

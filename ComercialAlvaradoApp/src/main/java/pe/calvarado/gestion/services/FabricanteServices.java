@@ -1,6 +1,7 @@
 package pe.calvarado.gestion.services;
 
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import pe.calvarado.gestion.entities.Fabricante;
 
 /**
@@ -14,4 +15,5 @@ public interface FabricanteServices {
      public String update(Fabricante fabricante);
      public Fabricante get(Integer fabricante_id); 
      public List<Fabricante> getFabricantesByParams(String nombre );
+     public DefaultComboBoxModel combo();   
 }

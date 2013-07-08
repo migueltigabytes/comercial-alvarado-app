@@ -3,11 +3,13 @@ package pe.calvarado.gestion.dao.jpa;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.swing.DefaultComboBoxModel;
 import org.apache.log4j.Logger;
 import pe.calvarado.gestion.dao.AtributoDAO;
 import pe.calvarado.gestion.entities.Atributo;
@@ -89,13 +91,31 @@ public class AtributoDAOImplJPA implements AtributoDAO {
         CriteriaQuery cq = qb.createQuery();
         Root<Atributo> atributo = cq.from(Atributo.class);
         List<Predicate> predicates = new ArrayList<>();
-        
-        predicates.add(qb.like(atributo.<String>get("nombre"),"%"+nombre+"%"));
+
+        predicates.add(qb.like(atributo.<String>get("nombre"), "%" + nombre + "%"));
 
         cq.select(atributo).where(predicates.toArray(new Predicate[]{}));
         //cq.orderBy(qb.desc(proveedor.get("fechaAlta").as(Date.class)));
         List<Atributo> atributoList = em.createQuery(cq).getResultList();
         em.close();
         return atributoList;
+    }
+
+    @Override
+    public DefaultComboBoxModel combo() {
+        if (!em.isOpen()) {
+            em = JPAUtil.getEntityManager();
+        }
+
+        Query query = em.createQuery("SELECT a FROM Atributo a");
+        List<Atributo> atributoList = query.getResultList();
+
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        modelo.addElement("Seleccione");
+        for (Atributo atributo : atributoList) {
+            modelo.addElement(atributo);
+        }
+
+        return modelo;
     }
 }

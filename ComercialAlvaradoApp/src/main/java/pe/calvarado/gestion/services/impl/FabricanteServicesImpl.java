@@ -1,6 +1,7 @@
 package pe.calvarado.gestion.services.impl;
 
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import pe.calvarado.gestion.dao.FabricanteDAO;
 import pe.calvarado.gestion.entities.Fabricante;
 import pe.calvarado.gestion.services.FabricanteServices;
@@ -45,6 +46,11 @@ public class FabricanteServicesImpl implements FabricanteServices{
     @Override
     public List<Fabricante> getFabricantesByParams(String nombre) {
         return fabricanteDao.getFabricantesByParams(nombre );
+    }
+
+    @Override
+    public DefaultComboBoxModel combo() {
+       return fabricanteDao.combo();
     }
     
 }

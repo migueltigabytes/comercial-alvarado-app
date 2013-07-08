@@ -18,13 +18,15 @@ public class frmMainApp extends javax.swing.JFrame {
     static Logger log = Logger.getLogger(frmMainApp.class);
     
     /* Formularios */
-        dialogRegistrarProveedor moduloProveedor = new dialogRegistrarProveedor(this,true);
-        dialogGestionarProveedor gestionarProveedor =  new dialogGestionarProveedor(this,true);
+        dialogRegistrarProveedor moduloProveedor      = new dialogRegistrarProveedor(this,true);
+        dialogGestionarProveedor gestionarProveedor   = new dialogGestionarProveedor(this,true);
         dialogGestionarCategorias gestionarCategorias = new dialogGestionarCategorias(this,true);
         dialogRegistrarFabricante registrarFabricante = new dialogRegistrarFabricante(this, true);
         dialogGestionarFabricante gestionarFabricante = new dialogGestionarFabricante(this, true);
-        dialogGestionarAtributo   gestionarAtributos =  new dialogGestionarAtributo(this,true);
-    
+        dialogGestionarAtributo   gestionarAtributos  = new dialogGestionarAtributo(this,true);
+        dialogGestionarProducto   gestionarProducto   = new dialogGestionarProducto(this,true);
+       
+        
     public frmMainApp() {
         initComponents();
     }
@@ -48,6 +50,9 @@ public class frmMainApp extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,6 +130,26 @@ public class frmMainApp extends javax.swing.JFrame {
 
         jMenu3.add(jMenu7);
 
+        jMenu8.setText("Producto");
+
+        jMenuItem8.setText("Registrar Producto");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem8);
+
+        jMenuItem7.setText("Gestionar Producto");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem7);
+
+        jMenu3.add(jMenu8);
+
         menuBar1.add(jMenu3);
 
         setJMenuBar(menuBar1);
@@ -167,6 +192,15 @@ public class frmMainApp extends javax.swing.JFrame {
         gestionarAtributos.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        gestionarProducto.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        dialogRegistrarProducto   registrarProducto   = new dialogRegistrarProducto(this,true);
+        registrarProducto.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+ 
   
     public static void main(String args[]) {
         
@@ -191,12 +225,15 @@ public class frmMainApp extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuBar menuBar1;
     // End of variables declaration//GEN-END:variables
 }
