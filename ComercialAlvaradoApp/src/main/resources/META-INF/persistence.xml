@@ -13,9 +13,26 @@
     <class>pe.calvarado.gestion.entities.Categoria</class>
     <class>pe.calvarado.gestion.entities.Fabricante</class>
     <class>pe.calvarado.gestion.entities.Contacto</class>
+    <class>pe.calvarado.gestion.entities.Transporte</class>
+    <class>pe.calvarado.gestion.entities.Estibador</class>
+    <class>pe.calvarado.gestion.entities.Delivery</class>
+    <class>pe.calvarado.gestion.entities.Perfil</class>
+    <class>pe.calvarado.gestion.entities.Direccion</class>
+    <class>pe.calvarado.gestion.entities.Cheque</class>
+    <class>pe.calvarado.gestion.entities.DetallePedido</class>
+    <class>pe.calvarado.gestion.entities.Vista</class>
+    <class>pe.calvarado.gestion.entities.Auditoria</class>
+    <class>pe.calvarado.gestion.entities.Usuario</class>
+    <class>pe.calvarado.gestion.entities.LiquidacionCliente</class>
+    <class>pe.calvarado.gestion.entities.Transportista</class>
+    <class>pe.calvarado.gestion.entities.Pedido</class>
+    <class>pe.calvarado.gestion.entities.Permiso</class>
+    <class>pe.calvarado.gestion.entities.TipoLicencia</class>
+    <class>pe.calvarado.gestion.entities.TipoPedido</class>
+    <class>pe.calvarado.gestion.entities.Cliente</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3316/comercial_bd"/>
-      <property name="javax.persistence.jdbc.password" value="miguel"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/comercial_alvarado"/>
+      <property name="javax.persistence.jdbc.password" value="mysql"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
     </properties>
