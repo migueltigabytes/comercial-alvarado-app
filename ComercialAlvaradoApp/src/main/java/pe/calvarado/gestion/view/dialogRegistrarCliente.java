@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.tools.StandardJavaFileManager;
 import pe.calvarado.gestion.entities.Cliente;
 import pe.calvarado.gestion.entities.Direccion;
 import pe.calvarado.gestion.entities.Ubigeo;
@@ -17,6 +16,7 @@ import pe.calvarado.gestion.services.ClienteServices;
 import pe.calvarado.gestion.services.UbigeoServices;
 import pe.calvarado.gestion.util.SpringUtils;
 import pe.calvarado.gestion.util.StandardViewMethods;
+import pe.calvarado.gestion.util.Validar;
 import pe.calvarado.gestion.util.helpers.UbigeoHelper;
 import pe.calvarado.gestion.util.messages.UIMessages;
 
@@ -26,25 +26,25 @@ import pe.calvarado.gestion.util.messages.UIMessages;
  */
 public class dialogRegistrarCliente extends javax.swing.JDialog implements StandardViewMethods {
 
-    UbigeoServices ubigeoServices       = (UbigeoServices)SpringUtils.getBean("ubigeoServices");
-    ClienteServices clienteServices =  (ClienteServices)SpringUtils.getBean("clienteServices");
+    UbigeoServices ubigeoServices = (UbigeoServices) SpringUtils.getBean("ubigeoServices");
+    ClienteServices clienteServices = (ClienteServices) SpringUtils.getBean("clienteServices");
     List<Ubigeo> ubigeoList = new ArrayList<>();
-    List<Direccion> direccionList =  new ArrayList<>();
-    
+    List<Direccion> direccionList = new ArrayList<>();
+
     public dialogRegistrarCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         loadData();
     }
 
-    
     @Override
     public void loadData() {
         ubigeoList = ubigeoServices.listarUbigeo();
-        comboDepto.setModel(UbigeoHelper.cargarComboDepto(ubigeoList, comboDepto,null)); 
-        
-        
+        comboDepto.setModel(UbigeoHelper.cargarComboDepto(ubigeoList, comboDepto, null));
+
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,6 +88,9 @@ public class dialogRegistrarCliente extends javax.swing.JDialog implements Stand
         jLabel15 = new javax.swing.JLabel();
         txtReferencia = new javax.swing.JTextField();
         checkEsPrincipal = new javax.swing.JCheckBox();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -160,27 +163,45 @@ public class dialogRegistrarCliente extends javax.swing.JDialog implements Stand
 
         checkEsPrincipal.setText("Es Principal");
 
+        jLabel16.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel16.setText("(*)");
+
+        jLabel17.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel17.setText("(*)");
+
+        jLabel18.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel18.setText("(*) Campos Oblogatorios");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4))
-                        .addGap(41, 41, 41)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                            .addComponent(txtNombre)
-                            .addComponent(txtApellido)
-                            .addComponent(txtRUC, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(47, 47, 47)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4))
+                                .addGap(41, 41, 41)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                                    .addComponent(txtNombre)
+                                    .addComponent(txtApellido)
+                                    .addComponent(txtRUC, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel17)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jLabel18)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -204,9 +225,9 @@ public class dialogRegistrarCliente extends javax.swing.JDialog implements Stand
                                 .addComponent(comboDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(comboProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtReferencia))
+                            .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -218,74 +239,91 @@ public class dialogRegistrarCliente extends javax.swing.JDialog implements Stand
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtTelefono1, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboDistrito, javax.swing.GroupLayout.Alignment.LEADING, 0, 135, Short.MAX_VALUE)
+                                    .addComponent(comboDistrito, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtTelefono2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCelular)))
+                                    .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(checkEsPrincipal))))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(comboDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(txtTelefono1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtRUC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnRegistrar))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(txtDireccion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel11)
-                            .addComponent(txtDireccion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12)
-                            .addComponent(txtTelefono2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtRUC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel14)
-                            .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15)
-                            .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnRegistrar)
-                            .addComponent(jLabel10)
-                            .addComponent(txtIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13)
-                            .addComponent(txtCodigoPostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkEsPrincipal))))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(20, 20, 20))
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8)
+                                    .addComponent(comboDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboDistrito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(txtTelefono1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(txtDireccion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel17))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel11)
+                                    .addComponent(txtDireccion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12)
+                                    .addComponent(txtTelefono2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel14)
+                                    .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel15)
+                                    .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel10)
+                                    .addComponent(txtIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel13)
+                                    .addComponent(txtCodigoPostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(checkEsPrincipal))))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel18))
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,10 +334,10 @@ public class dialogRegistrarCliente extends javax.swing.JDialog implements Stand
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboDeptoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboDeptoItemStateChanged
-        if(comboDepto.getSelectedIndex() > 0){ 
+        if (comboDepto.getSelectedIndex() > 0) {
             limpiarCombo(comboProvincia);
             limpiarCombo(comboDistrito);
-            comboProvincia.setModel(UbigeoHelper.cargarComboProv(ubigeoList, comboProvincia, comboDepto,null));
+            comboProvincia.setModel(UbigeoHelper.cargarComboProv(ubigeoList, comboProvincia, comboDepto, null));
         } else {
             limpiarCombo(comboProvincia);
             limpiarCombo(comboDistrito);
@@ -307,61 +345,63 @@ public class dialogRegistrarCliente extends javax.swing.JDialog implements Stand
     }//GEN-LAST:event_comboDeptoItemStateChanged
 
     private void comboProvinciaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboProvinciaItemStateChanged
-        if(comboProvincia.getSelectedIndex() > 0){ 
-        limpiarCombo(comboDistrito);
-        comboDistrito.setModel(UbigeoHelper.cargarComboDistrito(ubigeoList, comboDistrito, comboProvincia, comboDepto,null));
-      } 
-      
-      if(comboProvincia.getSelectedIndex() == 0){
-          limpiarCombo(comboDistrito);
-      }  
+        if (comboProvincia.getSelectedIndex() > 0) {
+            limpiarCombo(comboDistrito);
+            comboDistrito.setModel(UbigeoHelper.cargarComboDistrito(ubigeoList, comboDistrito, comboProvincia, comboDepto, null));
+        }
+
+        if (comboProvincia.getSelectedIndex() == 0) {
+            limpiarCombo(comboDistrito);
+        }
     }//GEN-LAST:event_comboProvinciaItemStateChanged
 
     private void comboDistritoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_comboDistritoKeyPressed
-         if(evt.getKeyCode()==evt.VK_ENTER){
-           txtDireccion1.requestFocus();
-        } 
+        if (evt.getKeyCode() == evt.VK_ENTER) {
+            txtDireccion1.requestFocus();
+        }
     }//GEN-LAST:event_comboDistritoKeyPressed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-       String mensaje;
-       Cliente cliente = new Cliente();
-       
-       cliente.setNombres(txtNombre.getText());
-       cliente.setApellidos(txtApellido.getText());
-       cliente.setRazonSocial(txtRazonSocial.getText());
-       cliente.setRuc(txtRUC.getText());
-       cliente.setDireccionList(direccionList); 
-       cliente.setFechaAlta(new Date());    
-        
-       for(Direccion direccion : direccionList){
-           direccion.setClienteId(cliente);
-       }
-       
-       
-       mensaje = clienteServices.insert(cliente);
-       
-       if(mensaje != null){
-          JOptionPane.showMessageDialog(this, UIMessages.getInfoMessage("onCompleteInsert"));
-          int resp = JOptionPane.showConfirmDialog(this, UIMessages.getQuestionMessage("register_another_proveedor"), 
-                     UIMessages.getQuestionMessage("register_another_title"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (resp == 0) {                
-               limpiarFormulario();
-            } else {
-               limpiarFormulario();
-               
+        if (direccionList.size() > 0 && esvalidoElFormulario()) {
+            String mensaje;
+            Cliente cliente = new Cliente();
+
+            cliente.setNombres(txtNombre.getText());
+            cliente.setApellidos(txtApellido.getText());
+            cliente.setRazonSocial(txtRazonSocial.getText());
+            cliente.setRuc(txtRUC.getText());
+            cliente.setDireccionList(direccionList);
+            cliente.setFechaAlta(new Date());
+
+            for (Direccion direccion : direccionList) {
+                direccion.setClienteId(cliente);
             }
-        }else{
-          JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("onInsertError"), UIMessages.getErrorMessage("onInsertError_title"), JOptionPane.ERROR_MESSAGE);
-        }          
-        
-        
+
+            mensaje = clienteServices.insert(cliente);
+
+            if (mensaje != null) {
+                JOptionPane.showMessageDialog(this, UIMessages.getInfoMessage("onCompleteInsert"));
+                int resp = JOptionPane.showConfirmDialog(this, UIMessages.getQuestionMessage("register_another_proveedor"),
+                        UIMessages.getQuestionMessage("register_another_title"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (resp == 0) {
+                    limpiarFormulario();
+                } else {
+                    limpiarFormulario();
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("onInsertError"), UIMessages.getErrorMessage("onInsertError_title"), JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Registre una dirección");
+        }
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Direccion direccion = new Direccion();        
-        
-        Ubigeo ubigeo = (Ubigeo)comboDistrito.getSelectedItem(); 
+        if(esValidoFormularioDireccion()){
+        Direccion direccion = new Direccion();
+        Ubigeo ubigeo = (Ubigeo) comboDistrito.getSelectedItem();
         direccion.setDireccion1(txtDireccion1.getText());
         direccion.setDireccion2(txtDireccion2.getText());
         direccion.setTelefono1(txtTelefono1.getText());
@@ -370,30 +410,93 @@ public class dialogRegistrarCliente extends javax.swing.JDialog implements Stand
         direccion.setCelular(txtCelular.getText());
         direccion.setIdentificador(txtIdentificador.getText());
         direccion.setCodigoPostal(txtCodigoPostal.getText());
-        direccion.setFechaAlta(new Date()); 
-        direccion.setActiva(true); 
-        direccion.setUbigeoId(ubigeo); 
-        if(checkEsPrincipal.isSelected()){
-           direccion.setEsPrincipal(true);
+        direccion.setFechaAlta(new Date());
+        direccion.setActiva(true);
+        direccion.setUbigeoId(ubigeo);
+        if (checkEsPrincipal.isSelected()) {
+            direccion.setEsPrincipal(true);
         }
-        direccionList.add(direccion);         
+        direccionList.add(direccion);
+        limpiarFormularioDireccion();
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void limpiarFormulario(){
-          txtNombre.setText("");
-          txtApellido.setText("");
-          txtRazonSocial.setText(""); 
-          txtRUC.setText(""); 
-    }  
-   
     
-    public void limpiarCombo(JComboBox combo){
+    private boolean esValidoFormularioDireccion(){
+        if (comboDepto.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("requiredSelectedDepartamento"));
+            return false;
+        }
+        if (comboDepto.getSelectedIndex() > 0 && comboProvincia.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("requiredSelectedProvincia"));
+            return false;
+        }
+        if (comboProvincia.getSelectedIndex() > 0 && comboDistrito.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("requiredSelectedDistrito"));
+            return false;
+        }
+        if (Validar.esVacio(txtDireccion1.getText()) || Validar.validarVacio(txtDireccion1.getText())) {
+            JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("requiredField"), UIMessages.getErrorMessage("requiredField_title"), JOptionPane.ERROR_MESSAGE);
+            txtDireccion1.requestFocus();
+            return false;
+        }
+        if (Validar.esVacio(txtIdentificador.getText()) || Validar.validarVacio(txtIdentificador.getText())) {
+            JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("requiredField"), UIMessages.getErrorMessage("requiredField_title"), JOptionPane.ERROR_MESSAGE);
+            txtIdentificador.requestFocus();
+            return false;
+        }
+        if (Validar.esVacio(txtTelefono1.getText()) || Validar.validarVacio(txtTelefono1.getText())) {
+            JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("requiredField"), UIMessages.getErrorMessage("requiredField_title"), JOptionPane.ERROR_MESSAGE);
+            txtTelefono1.requestFocus();
+            return false;
+        }
+               
+    
+      return true;    
+    }
+    
+    private boolean esvalidoElFormulario() {
+
+        if (Validar.esVacio(txtNombre.getText()) || Validar.validarVacio(txtNombre.getText())) {
+            JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("requiredField"), UIMessages.getErrorMessage("requiredField_title"), JOptionPane.ERROR_MESSAGE);
+            txtNombre.requestFocus();
+            return false;
+        }
+        if (Validar.esVacio(txtApellido.getText()) || Validar.validarVacio(txtApellido.getText())) {
+            JOptionPane.showMessageDialog(this, UIMessages.getErrorMessage("requiredField"), UIMessages.getErrorMessage("requiredField_title"), JOptionPane.ERROR_MESSAGE);
+            txtNombre.requestFocus();
+            return false;
+        }
+        
+        return true;
+    }
+
+    private void limpiarFormularioDireccion() {
+        comboDepto.setSelectedIndex(0);
+        txtDireccion1.setText("");
+        txtDireccion2.setText("");
+        txtTelefono1.setText("");
+        txtTelefono2.setText("");
+        txtCelular.setText("");
+        txtCodigoPostal.setText("");
+        txtIdentificador.setText("");
+        checkEsPrincipal.setSelected(false);
+        txtReferencia.setText("");
+    }
+
+    private void limpiarFormulario() {
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtRazonSocial.setText("");
+        txtRUC.setText("");
+    }
+
+    public void limpiarCombo(JComboBox combo) {
         combo.removeAllItems();
         combo.addItem("Seleccione");
     }
-   
-   
-    
+
     /**
      * @param args the command line arguments
      */
@@ -449,6 +552,9 @@ public class dialogRegistrarCliente extends javax.swing.JDialog implements Stand
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -471,6 +577,4 @@ public class dialogRegistrarCliente extends javax.swing.JDialog implements Stand
     private javax.swing.JTextField txtTelefono1;
     private javax.swing.JTextField txtTelefono2;
     // End of variables declaration//GEN-END:variables
-
-    
 }
