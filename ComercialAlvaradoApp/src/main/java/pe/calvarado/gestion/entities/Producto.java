@@ -75,7 +75,6 @@ public class Producto implements Serializable {
     @Column(name = "fecha_alta")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaAlta;
-    @Basic(optional = false)
     @Column(name = "fecha_update")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaUpdate;
@@ -95,7 +94,7 @@ public class Producto implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "productoId")
     private ProductoCombo productoCombo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productoId")
-    private List<Imagen> imagenList;
+    private List<ProductoOferta> productoOfertaList;
     @JoinColumn(name = "categoria_default_id", referencedColumnName = "categoria_id")
     @ManyToOne(optional = false)
     private Categoria categoriaDefaultId;
@@ -106,7 +105,9 @@ public class Producto implements Serializable {
     @ManyToOne
     private Proveedor proveedorId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productoId")
-    private List<ProductoOferta> productoOfertaList;
+    private List<DetallePedido> detallePedidoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productoId")
+    private List<Imagen> imagenList;
 
     public Producto() {
     }
@@ -115,7 +116,7 @@ public class Producto implements Serializable {
         this.productoId = productoId;
     }
 
-    public Producto(Integer productoId, String nombre, String descripcion, BigDecimal precioVenta, int cantidad, boolean enVenta, int alertaDeStock, Date fechaAlta, Date fechaUpdate, boolean markfordelete) {
+    public Producto(Integer productoId, String nombre, String descripcion, BigDecimal precioVenta, int cantidad, boolean enVenta, int alertaDeStock, Date fechaAlta, boolean markfordelete) {
         this.productoId = productoId;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -124,7 +125,6 @@ public class Producto implements Serializable {
         this.enVenta = enVenta;
         this.alertaDeStock = alertaDeStock;
         this.fechaAlta = fechaAlta;
-        this.fechaUpdate = fechaUpdate;
         this.markfordelete = markfordelete;
     }
 
@@ -264,12 +264,12 @@ public class Producto implements Serializable {
         this.productoCombo = productoCombo;
     }
 
-    public List<Imagen> getImagenList() {
-        return imagenList;
+    public List<ProductoOferta> getProductoOfertaList() {
+        return productoOfertaList;
     }
 
-    public void setImagenList(List<Imagen> imagenList) {
-        this.imagenList = imagenList;
+    public void setProductoOfertaList(List<ProductoOferta> productoOfertaList) {
+        this.productoOfertaList = productoOfertaList;
     }
 
     public Categoria getCategoriaDefaultId() {
@@ -296,12 +296,20 @@ public class Producto implements Serializable {
         this.proveedorId = proveedorId;
     }
 
-    public List<ProductoOferta> getProductoOfertaList() {
-        return productoOfertaList;
+    public List<DetallePedido> getDetallePedidoList() {
+        return detallePedidoList;
     }
 
-    public void setProductoOfertaList(List<ProductoOferta> productoOfertaList) {
-        this.productoOfertaList = productoOfertaList;
+    public void setDetallePedidoList(List<DetallePedido> detallePedidoList) {
+        this.detallePedidoList = detallePedidoList;
+    }
+
+    public List<Imagen> getImagenList() {
+        return imagenList;
+    }
+
+    public void setImagenList(List<Imagen> imagenList) {
+        this.imagenList = imagenList;
     }
 
     @Override

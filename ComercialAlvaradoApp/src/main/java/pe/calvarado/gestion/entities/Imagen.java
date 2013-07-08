@@ -1,3 +1,7 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package pe.calvarado.gestion.entities;
 
 import java.io.Serializable;
@@ -141,7 +145,7 @@ public class Imagen implements Serializable {
 
     @Override
     public String toString() {
-        return getNombre();
+        return "pe.calvarado.gestion.entities.Imagen[ imagenId=" + imagenId + " ]";
     }
     
 }

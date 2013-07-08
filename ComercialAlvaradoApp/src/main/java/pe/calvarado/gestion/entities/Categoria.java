@@ -64,9 +64,8 @@ public class Categoria implements Serializable {
         this.categoriaId = categoriaId;
     }
 
-    public Categoria(Integer categoriaId, Categoria categoriaPadreId, String nombre, int nivel, boolean markfordelete) {
+    public Categoria(Integer categoriaId, String nombre, int nivel, boolean markfordelete) {
         this.categoriaId = categoriaId;
-        this.categoriaPadreId = categoriaPadreId;
         this.nombre = nombre;
         this.nivel = nivel;
         this.markfordelete = markfordelete;
@@ -158,7 +157,7 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return getNombre();
+        return "pe.calvarado.gestion.entities.Categoria[ categoriaId=" + categoriaId + " ]";
     }
     
 }

@@ -7,6 +7,7 @@ package pe.calvarado.gestion.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,46 +23,40 @@ import javax.persistence.Table;
  * @author DIEGOALV
  */
 @Entity
-@Table(name = "fabricante")
+@Table(name = "tipo_licencia")
 @NamedQueries({
-    @NamedQuery(name = "Fabricante.findAll", query = "SELECT f FROM Fabricante f")})
-public class Fabricante implements Serializable {
+    @NamedQuery(name = "TipoLicencia.findAll", query = "SELECT t FROM TipoLicencia t")})
+public class TipoLicencia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "fabricante_id")
-    private Integer fabricanteId;
-    @Basic(optional = false)
+    @Column(name = "tipo_licencia_id")
+    private Integer tipoLicenciaId;
     @Column(name = "nombre")
     private String nombre;
+    @Column(name = "identificador")
+    private String identificador;
     @Column(name = "descripcion")
     private String descripcion;
-    @Basic(optional = false)
     @Column(name = "MARKFORDELETE")
-    private boolean markfordelete;
-    @OneToMany(mappedBy = "fabricanteId")
-    private List<Producto> productoList;
+    private Boolean markfordelete;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoLicenciaId")
+    private List<Transportista> transportistaList;
 
-    public Fabricante() {
+    public TipoLicencia() {
     }
 
-    public Fabricante(Integer fabricanteId) {
-        this.fabricanteId = fabricanteId;
+    public TipoLicencia(Integer tipoLicenciaId) {
+        this.tipoLicenciaId = tipoLicenciaId;
     }
 
-    public Fabricante(Integer fabricanteId, String nombre, boolean markfordelete) {
-        this.fabricanteId = fabricanteId;
-        this.nombre = nombre;
-        this.markfordelete = markfordelete;
+    public Integer getTipoLicenciaId() {
+        return tipoLicenciaId;
     }
 
-    public Integer getFabricanteId() {
-        return fabricanteId;
-    }
-
-    public void setFabricanteId(Integer fabricanteId) {
-        this.fabricanteId = fabricanteId;
+    public void setTipoLicenciaId(Integer tipoLicenciaId) {
+        this.tipoLicenciaId = tipoLicenciaId;
     }
 
     public String getNombre() {
@@ -72,6 +67,14 @@ public class Fabricante implements Serializable {
         this.nombre = nombre;
     }
 
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
+    }
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -80,37 +83,37 @@ public class Fabricante implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public boolean getMarkfordelete() {
+    public Boolean getMarkfordelete() {
         return markfordelete;
     }
 
-    public void setMarkfordelete(boolean markfordelete) {
+    public void setMarkfordelete(Boolean markfordelete) {
         this.markfordelete = markfordelete;
     }
 
-    public List<Producto> getProductoList() {
-        return productoList;
+    public List<Transportista> getTransportistaList() {
+        return transportistaList;
     }
 
-    public void setProductoList(List<Producto> productoList) {
-        this.productoList = productoList;
+    public void setTransportistaList(List<Transportista> transportistaList) {
+        this.transportistaList = transportistaList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (fabricanteId != null ? fabricanteId.hashCode() : 0);
+        hash += (tipoLicenciaId != null ? tipoLicenciaId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Fabricante)) {
+        if (!(object instanceof TipoLicencia)) {
             return false;
         }
-        Fabricante other = (Fabricante) object;
-        if ((this.fabricanteId == null && other.fabricanteId != null) || (this.fabricanteId != null && !this.fabricanteId.equals(other.fabricanteId))) {
+        TipoLicencia other = (TipoLicencia) object;
+        if ((this.tipoLicenciaId == null && other.tipoLicenciaId != null) || (this.tipoLicenciaId != null && !this.tipoLicenciaId.equals(other.tipoLicenciaId))) {
             return false;
         }
         return true;
@@ -118,7 +121,7 @@ public class Fabricante implements Serializable {
 
     @Override
     public String toString() {
-        return "pe.calvarado.gestion.entities.Fabricante[ fabricanteId=" + fabricanteId + " ]";
+        return "pe.calvarado.gestion.entities.TipoLicencia[ tipoLicenciaId=" + tipoLicenciaId + " ]";
     }
     
 }

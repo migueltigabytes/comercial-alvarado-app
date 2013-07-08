@@ -42,6 +42,8 @@ public class Ubigeo implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ubigeoId")
+    private List<Direccion> direccionList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ubigeoId")
     private List<Proveedor> proveedorList;
 
     public Ubigeo() {
@@ -91,6 +93,14 @@ public class Ubigeo implements Serializable {
         this.nombre = nombre;
     }
 
+    public List<Direccion> getDireccionList() {
+        return direccionList;
+    }
+
+    public void setDireccionList(List<Direccion> direccionList) {
+        this.direccionList = direccionList;
+    }
+
     public List<Proveedor> getProveedorList() {
         return proveedorList;
     }
@@ -121,7 +131,7 @@ public class Ubigeo implements Serializable {
 
     @Override
     public String toString() {
-        return getNombre();
+        return "pe.calvarado.gestion.entities.Ubigeo[ ubigeoId=" + ubigeoId + " ]";
     }
     
 }
