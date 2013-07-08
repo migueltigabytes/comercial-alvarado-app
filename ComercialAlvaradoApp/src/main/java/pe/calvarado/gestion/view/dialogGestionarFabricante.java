@@ -28,6 +28,10 @@ public class dialogGestionarFabricante extends javax.swing.JDialog implements St
     public dialogGestionarFabricante(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+                //oculto la primera columna q es el objeto fabricante
+        tblFabricante.getColumnModel().getColumn(0).setMaxWidth(0);
+        tblFabricante.getColumnModel().getColumn(0).setMinWidth(0);
+        tblFabricante.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
 
   
@@ -50,6 +54,7 @@ public class dialogGestionarFabricante extends javax.swing.JDialog implements St
 
         jLabel1.setText("Nombre");
 
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/calvarado/gestion/view/images/search.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,11 +67,11 @@ public class dialogGestionarFabricante extends javax.swing.JDialog implements St
 
             },
             new String [] {
-                "Nombre", "Descripción"
+                "", "Nombre", "Descripción"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -75,6 +80,8 @@ public class dialogGestionarFabricante extends javax.swing.JDialog implements St
         });
         tblFabricante.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(tblFabricante);
+        tblFabricante.getColumnModel().getColumn(0).setResizable(false);
+        tblFabricante.getColumnModel().getColumn(0).setPreferredWidth(0);
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/calvarado/gestion/view/images/delete.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
@@ -105,7 +112,7 @@ public class dialogGestionarFabricante extends javax.swing.JDialog implements St
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnBuscar)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -120,7 +127,7 @@ public class dialogGestionarFabricante extends javax.swing.JDialog implements St
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -130,15 +137,16 @@ public class dialogGestionarFabricante extends javax.swing.JDialog implements St
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminar)
-                    .addComponent(btnEditar))
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addComponent(btnEditar)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,7 +226,7 @@ public class dialogGestionarFabricante extends javax.swing.JDialog implements St
         model.getDataVector().clear();
         for (Fabricante fabricante : listado) {
             log.info(fabricante.getMarkfordelete());
-            model.addRow(new Object[]{fabricante, fabricante.getDescripcion()});
+            model.addRow(new Object[]{fabricante,fabricante.getNombre(), fabricante.getDescripcion()});
         }
 
         TableColumnAdjuster tca = new TableColumnAdjuster(tblFabricante);
