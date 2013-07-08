@@ -37,4 +37,8 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     <bean id="productoServices" class="pe.calvarado.gestion.services.impl.ProductoServicesImpl">
     <property name="productoDao" ref="productoDao"/>
     </bean>
+    
+    <bean id="clienteServices" class="pe.calvarado.gestion.services.impl.ClienteServicesImpl">
+    <property name="clienteDao" ref="clienteDao"/>
+    </bean>
 </beans>

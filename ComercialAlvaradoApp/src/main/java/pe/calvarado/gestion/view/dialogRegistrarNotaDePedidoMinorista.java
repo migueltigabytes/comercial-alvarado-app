@@ -6,12 +6,13 @@ package pe.calvarado.gestion.view;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import pe.calvarado.gestion.util.StandardViewMethods;
 
 /**
  *
  * @author TIGABYTES 005
  */
-public class dialogRegistrarNotaDePedidoMinorista extends javax.swing.JDialog {
+public class dialogRegistrarNotaDePedidoMinorista extends javax.swing.JDialog implements StandardViewMethods{
 
     Date fechaActual =  new Date();
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -23,6 +24,13 @@ public class dialogRegistrarNotaDePedidoMinorista extends javax.swing.JDialog {
     public dialogRegistrarNotaDePedidoMinorista(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        loadData();
+    }
+    
+    
+    @Override
+    public void loadData() {
+        txtFecha.setText(resultado); 
     }
     
     /**
@@ -73,13 +81,13 @@ public class dialogRegistrarNotaDePedidoMinorista extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(239, 239, 239)
+                        .addGap(18, 18, 18)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txtFecha)))
-                .addContainerGap(247, Short.MAX_VALUE))
+                .addContainerGap(468, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,4 +171,6 @@ public class dialogRegistrarNotaDePedidoMinorista extends javax.swing.JDialog {
     private javax.swing.JLabel txtFecha;
     private javax.swing.JLabel txtNumeroPedido;
     // End of variables declaration//GEN-END:variables
+
+    
 }

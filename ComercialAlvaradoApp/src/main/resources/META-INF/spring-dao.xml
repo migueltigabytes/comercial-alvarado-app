@@ -13,4 +13,5 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 <bean   id="atributoDao" class="pe.calvarado.gestion.dao.jpa.AtributoDAOImplJPA"></bean>
 <bean   id="atributoTipoDao" class="pe.calvarado.gestion.dao.jpa.AtributoTipoDAOImplJPA"></bean>
 <bean   id="productoDao" class="pe.calvarado.gestion.dao.jpa.ProductoDAOImplJPA"></bean>
+<bean   id="clienteDao" class="pe.calvarado.gestion.dao.jpa.ClienteDAOImplJPA"></bean>
 </beans>

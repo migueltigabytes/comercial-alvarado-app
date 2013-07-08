@@ -25,6 +25,7 @@ public class frmMainApp extends javax.swing.JFrame {
         dialogGestionarFabricante gestionarFabricante = new dialogGestionarFabricante(this, true);
         dialogGestionarAtributo   gestionarAtributos  = new dialogGestionarAtributo(this,true);
         dialogGestionarProducto   gestionarProducto   = new dialogGestionarProducto(this,true);
+        dialogRegistrarCliente    registrarCliente    = new dialogRegistrarCliente(this,true);
        
         
     public frmMainApp() {
@@ -53,6 +54,8 @@ public class frmMainApp extends javax.swing.JFrame {
         jMenu8 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenu9 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -150,6 +153,18 @@ public class frmMainApp extends javax.swing.JFrame {
 
         jMenu3.add(jMenu8);
 
+        jMenu9.setText("Cliente");
+
+        jMenuItem9.setText("Registrar Cliente");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu9.add(jMenuItem9);
+
+        jMenu3.add(jMenu9);
+
         menuBar1.add(jMenu3);
 
         setJMenuBar(menuBar1);
@@ -200,6 +215,10 @@ public class frmMainApp extends javax.swing.JFrame {
         dialogRegistrarProducto   registrarProducto   = new dialogRegistrarProducto(this,true);
         registrarProducto.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        registrarCliente.setVisible(true); 
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
  
   
     public static void main(String args[]) {
@@ -226,6 +245,7 @@ public class frmMainApp extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
@@ -234,6 +254,7 @@ public class frmMainApp extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuBar menuBar1;
     // End of variables declaration//GEN-END:variables
 }
